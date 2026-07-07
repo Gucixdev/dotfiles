@@ -1336,6 +1336,11 @@ The preceding item is matched at least @var{n} times, but not more than
 @end table
 
 The empty regular expression matches the empty string.
+This is a GNU extension.
+However, the empty regular expression can be followed by a repetition operator
+only if it immediately follows @samp{(} or @samp{|} or is at the start
+of the overall regular expression.
+
 Two regular expressions may be concatenated;
 the resulting regular expression
 matches any string formed by concatenating two substrings
@@ -1729,6 +1734,8 @@ Special backslash expressions like @samp{\b}, @samp{\<}, and @samp{\]}.
 
 @item
 A basic regular expression that uses @samp{\?}, @samp{\+}, or @samp{\|}.
+POSIX allows an implementation to define whether these act as in GNU
+@command{grep}, or merely match the corresponding literal characters.
 
 @item
 An extended regular expression that uses back-references.
@@ -1740,8 +1747,8 @@ example, @samp{(a|bc|)} is not portable; a portable equivalent is
 
 @item
 In a basic regular expression, an anchoring @samp{^} that appears
-directly after @samp{\(}, or an anchoring @samp{$} that appears
-directly before @samp{\)}.
+directly after @samp{\(} or @samp{\|}, or an anchoring @samp{$} that appears
+directly before @samp{\)} or @samp{\|}.
 
 @item
 In a basic regular expression, a repetition operator that
