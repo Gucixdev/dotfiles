@@ -761,119 +761,36 @@ expressions, by using various operators to combine smaller expressions.
 .B grep
 understands three different versions of regular expression syntax:
 \*(lqbasic\*(rq (BRE), \*(lqextended\*(rq (ERE) and \*(lqperl\*(rq (PCRE).
-In GNU
-.BR grep ,
-basic and extended regular expressions are merely different notations
-for the same pattern-matching functionality.
-In other implementations, basic regular expressions are ordinarily
-less powerful than extended, though occasionally it is the other way around.
-The following description applies to extended regular expressions;
-differences for basic regular expressions are summarized afterwards.
-Perl-compatible regular expressions have different functionality, and are
+Basic and extended regular expressions are documented in
+.BR regex (7).
+Perl-compatible regular expressions are
 documented in
-.BR pcre2syntax (3)
-and
 .BR pcre2pattern (3),
 but work only if PCRE support is enabled.
 .PP
-The fundamental building blocks are the regular expressions
-that match a single character.
-Most characters, including all letters and digits,
-are regular expressions that match themselves.
-Any meta-character with special meaning
-may be quoted by preceding it with a backslash.
-.PP
-The period
-.B .\&
-matches any single character.
-It is unspecified whether it matches an encoding error.
-.SS "Character Classes and Bracket Expressions"
-A
-.I "bracket expression"
-is a list of characters enclosed by
-.B [
+The rest of this section documents
+several GNU extensions to portable, standard POSIX BREs and EREs,
+and clarifies GNU
+.BR grep 's
+behavior in areas where the POSIX standard leaves things undefined.
+.SS "BREs and EREs Have the Same Power"
+GNU BREs and EREs  are merely different notations
+for the same pattern-matching functionality.
+In other implementations, BREs are ordinarily
+less powerful than EREs, though occasionally it is the other way around.
+To support this, GNU BREs can use the escape sequences
+.BR \e? ,
+.BR \e+ ,
 and
-.BR ] .
-It matches any single
-character in that list.
-If the first character of the list
-is the caret
-.B ^
-then it matches any character
-.I not
-in the list; it is unspecified whether it matches an encoding error.
-For example, the regular expression
-.B [0123456789]
-matches any single digit.
-.PP
-Within a bracket expression, a
-.I "range expression"
-consists of two characters separated by a hyphen.
-In the default C locale, it matches any single character that appears
-between the two characters in ASCII order, inclusive.
-For example,
-.B [a\-d]
-is equivalent to
-.BR [abcd] .
-In other locales the behavior is unspecified:
-.B [a\-d]
-might be equivalent to
-.B [abcd]
-or
-.B [aBbCcDd]
-or some other bracket expression,
-or it might fail to match any character, or the set of
-characters that it matches might be erratic, or it might be invalid.
-To obtain the traditional interpretation of bracket expressions,
-you can use the C locale by setting the
-.B LC_ALL
-environment variable to the value
-.BR C .
-.PP
-Finally, certain named classes of characters are predefined within
-bracket expressions, as follows.
-Their names are self explanatory, and they are
-.BR [:alnum:] ,
-.BR [:alpha:] ,
-.BR [:blank:] ,
-.BR [:cntrl:] ,
-.BR [:digit:] ,
-.BR [:graph:] ,
-.BR [:lower:] ,
-.BR [:print:] ,
-.BR [:punct:] ,
-.BR [:space:] ,
-.BR [:upper:] ,
-and
-.BR [:xdigit:] .
-For example,
-.B [[:alnum:]]
-means the character class of numbers and
-letters in the current locale.
-In the C locale and ASCII
-character set encoding, this is the same as
-.BR [0\-9A\-Za\-z] .
-(Note that the brackets in these class names are part of the symbolic
-names, and must be included in addition to the brackets delimiting
-the bracket expression.)
-Most meta-characters lose their special meaning inside bracket expressions.
-To include a literal
-.B ]
-place it first in the list.
-Similarly, to include a literal
-.B ^
-place it anywhere but first.
-Finally, to include a literal
-.B \-
-place it last.
-.SS Anchoring
-The caret
-.B ^
-and the dollar sign
-.B $
-are meta-characters that respectively match the empty string at the
-beginning and end of a line.
-.SS "The Backslash Character and Special Expressions"
+.BR \e| ,
+with the same meaning as their unescaped ERE counterparts,
+and GNU EREs can use back-references
+.BI \e n
+with the same meaning as in BREs.
+.SS "Other Backslash Escapes"
+GNU
+.B grep
+supports several other backslash escapes beyond what POSIX requires.
 The symbols
 .B \e<
 and
@@ -895,84 +812,62 @@ and
 .B \eW
 is a synonym for
 .BR [^_[:alnum:]] .
-.SS Repetition
-A regular expression may be followed by one of several repetition operators:
-.PD 0
-.TP
-.B ?
-The preceding item is optional and matched at most once.
-.TP
-.B *
-The preceding item will be matched zero or more times.
-.TP
-.B +
-The preceding item will be matched one or more times.
-.TP
-.BI { n }
-The preceding item is matched exactly
-.I n
-times.
-.TP
-.BI { n ,}
-The preceding item is matched
-.I n
-or more times.
-.TP
-.BI {, m }
-The preceding item is matched at most
-.I m
-times.
-This is a GNU extension.
-.TP
-.BI { n , m }
-The preceding item is matched at least
-.I n
-times, but not more than
-.I m
-times.
-.PD
-.SS Concatenation
-Two regular expressions may be concatenated; the resulting
-regular expression matches any string formed by concatenating
-two substrings that respectively match the concatenated
-expressions.
-.SS Alternation
-Two regular expressions may be joined by the infix operator
-.BR | ;
-the resulting regular expression matches any string matching
-either alternate expression.
-.SS Precedence
-Repetition takes precedence over concatenation, which in turn
-takes precedence over alternation.
-A whole expression may be enclosed in parentheses
-to override these precedence rules and form a subexpression.
-.SS "Back-references and Subexpressions"
-The back-reference
-.BI \e n\c
-\&, where
-.I n
-is a single digit, matches the substring
-previously matched by the
-.IR n th
-parenthesized subexpression of the regular expression.
-.SS "Basic vs Extended Regular Expressions"
-In basic regular expressions the meta-characters
-.BR ? ,
-.BR + ,
-.BR { ,
-.BR | ,
-.BR ( ,
+.SS "Effects of Encoding Errors"
+It is unspecified whether the pattern
+.B .\&
+matches an encoding error.
+It is also unspecified whether a non-matching list expression
+(i.e., a bracket expression whose first character is
+.BR ^ )
+matches an encoding error.
+This means GNU
+.B grep
+might match, or might not, but will not crash.
+In other implementations,
+.B grep
+might crash when given encoding errors in either patterns or data.
+.SS "Character Classes and Bracket Expressions"
+In locales other than the default C locale, the set of characters
+matched by a range expression is unspecified:
+.B [a\-d]
+might be equivalent to
+.B [abcd]
+or
+.B [aBbCcDd]
+or some other bracket expression,
+or it might fail to match any character, or the set of
+characters that it matches might be erratic, or it might be invalid.
+To obtain the traditional interpretation of bracket expressions,
+you can use the C locale by setting the
+.B LC_ALL
+environment variable to the value
+.BR C .
+.SS Empty Regular Expressions
+GNU BREs and EREs allow empty regular expressions, either
+at the top level, or as alternatives in subexpressions.
+.SS "Anchoring in BREs"
+In BREs, the caret
+.B ^
+acts as an anchor when it immediately follows
+.B \e(
+or
+.B \e|
+in a subexpression, and the dollar sign
+.B $
+acts as an anchor when it immediately precedes
+.B \e)
+or
+.B \e|
+in a subexpression.
+Other
+.B grep
+implementations may treat these patterns as ordinary characters
+in these contexts, even if they support
+.BR \e(,
+.BR \e|,
 and
-.B )
-lose their special meaning; instead use the backslashed
-versions
-.BR \e? ,
-.BR \e+ ,
-.BR \e{ ,
-.BR \e| ,
-.BR \e( ,
-and
-.BR \e) .
+.B \e)
+in BREs.
 .
 .SH "EXIT STATUS"
 Normally the exit status is 0 if a line is selected, 1 if no lines
@@ -1330,8 +1225,6 @@ from the globbing syntax that the shell uses to match file names.
 .BR sort (1),
 .BR xargs (1),
 .BR read (2),
-.BR pcre2 (3),
-.BR pcre2syntax (3),
 .BR pcre2pattern (3),
 .BR terminfo (5),
 .BR glob (7),
