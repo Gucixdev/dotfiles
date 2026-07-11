@@ -1,0 +1,13 @@
+# sekrety / sesje / historia — nigdy nie commitowac
+.claude/
+.claude.json
+.claude.json.tmp*
+config/dconf/
+config/gtk-3.0/
+config/obsidian/
+config/streambert/
+config/Thunar/
+config/user-dirs.dirs
+config/session/
+config/mozilla/
+config/gh/
