@@ -1,0 +1,8 @@
+[user]
+	name = drbongo
+	email = gurtowskikacper660@gmail.com
+	signingkey = 28B5D550ECB23AF3FA7FF75A1BF4674B46520F5E
+[commit]
+	gpgsign = true
+[gpg]
+	program = gpg

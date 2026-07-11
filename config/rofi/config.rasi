@@ -1,0 +1,15 @@
+configuration {
+    show-icons: true;
+    icon-theme: "breeze-dark";
+}
+
+@theme "Arc-Dark"
+
+* {
+    foreground:             #00ff88;
+    text-color:             #00ff88;
+}
+
+element selected {
+    text-color:             #111111;
+}
