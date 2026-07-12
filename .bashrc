@@ -21,11 +21,11 @@ export NNN_TRASH=1
 export NNN_COLORS='2136'
 export NNN_FCOLORS='c1e2272e006033f7c6d6abc4'
 export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
-export NNN_PLUG='l:symlink'
+export NNN_PLUG='l:symlink;k:keys'
 
 # cd on quit — wyjdz z nnn i laduj w folderze gdzie bylys
 n() {
-    nnn -Hd "$@"
+    nnn -Hdiu "$@"
     if [ -f "$NNN_TMPFILE" ]; then
         . "$NNN_TMPFILE"
         rm -f "$NNN_TMPFILE"
