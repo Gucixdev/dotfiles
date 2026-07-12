@@ -7,7 +7,7 @@
 # Shell: bash
 # Author: drbongo (via Claude)
 
-${PAGER:-less} -R <<'EOF'
+${PAGER:-less} <<'EOF'
 NNN — ŚCIĄGA ZE SKRÓTÓW  (pełny oryginał: klawisz ?)
 ======================================================
 
