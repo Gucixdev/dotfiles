@@ -45,7 +45,12 @@ mainbox {
     background-color:           transparent;
     padding:                    14px;
     spacing:                    10px;
-    children:                   [ inputbar, listview ];
+    children:                   [ inputbar, listview, mode-switcher ];
+}
+
+mode-switcher {
+    background-color:           transparent;
+    spacing:                    6px;
 }
 
 inputbar {
@@ -86,6 +91,18 @@ element {
 }
 
 element selected {
+    background-color:           @accent;
+    text-color:                 @text-selected;
+}
+
+button {
+    background-color:           @bg-alt;
+    text-color:                 @fg;
+    border-radius:               @radius-sm;
+    padding:                    6px 12px;
+}
+
+button selected {
     background-color:           @accent;
     text-color:                 @text-selected;
 }
