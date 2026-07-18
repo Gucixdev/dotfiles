@@ -356,7 +356,7 @@ typedef struct {
 	uint_t blkorder   : 1;  /* Set to sort by blocks used (disk usage) */
 	uint_t extnorder  : 1;  /* Order by extension */
 	uint_t showhidden : 1;  /* Set to show hidden files */
-	uint_t reserved0  : 1;
+	uint_t hidesymlink : 1; /* Set to hide symlinks */
 	uint_t showdetail : 1;  /* Clear to show lesser file info */
 	uint_t ctxactive  : 1;  /* Context active or not */
 	uint_t reverse    : 1;  /* Reverse sort */
@@ -6768,6 +6768,15 @@ static int dentfill(char *path, struct entry **ppdents)
 				entflags = SYM_ORPHAN;
 		}
 
+		if (cfg.hidesymlink) {
+#if !(defined(__sun) || defined(__HAIKU__))
+			if (!flags ? dp->d_type == DT_LNK : S_ISLNK(sb.st_mode))
+#else
+			if (S_ISLNK(sb.st_mode))
+#endif
+				continue;
+		}
+
 		if (ndents == total_dents) {
 			if (cfg.blkorder) {
 				pthread_mutex_lock(&running_mutex);
@@ -8356,6 +8365,7 @@ nochange:
 			goto nochange;
 		case SEL_MFLTR: // fallthrough
 		case SEL_HIDDEN: // fallthrough
+		case SEL_SYMLINK: // fallthrough
 		case SEL_DETAIL: // fallthrough
 		case SEL_SORT:
 			switch (sel) {
@@ -8371,6 +8381,16 @@ nochange:
 			case SEL_HIDDEN:
 				if (sel == SEL_HIDDEN) {
 					cfg.showhidden ^= 1;
+					if (cfg.filtermode)
+						presel = FILTER;
+					clearfilter();
+				}
+				copycurname();
+				cd = FALSE;
+				goto begin;
+			case SEL_SYMLINK:
+				if (sel == SEL_SYMLINK) {
+					cfg.hidesymlink ^= 1;
 					if (cfg.filtermode)
 						presel = FILTER;
 					clearfilter();
