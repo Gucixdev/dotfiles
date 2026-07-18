@@ -12,12 +12,14 @@ configuration {
 }
 
 * {
+    /* THEME:BEGIN - generowane przez ~/dev/github/rice/theme/apply, nie edytuj recznie */
     bg:                         #000000e6;
     bg-alt:                     #111111ff;
     fg:                         #e0e0e0ff;
     accent:                     #00ff88ff;
     accent-dim:                 #00ff8833;
     text-selected:              #000000ff;
+/* THEME:END */
 
     background-color:           transparent;
     text-color:                 @fg;
