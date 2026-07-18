@@ -1,0 +1,36 @@
+app-id: io.github.VictorIX.BlenderLauncherV2
+runtime: org.freedesktop.Platform
+runtime-version: '24.08'
+sdk: org.freedesktop.Sdk
+command: blender-launcher
+
+finish-args:
+  - --share=network
+  - --share=ipc
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --filesystem=home
+  - --device=dri
+  - --talk-name=org.freedesktop.Notifications
+  - --talk-name=org.kde.StatusNotifierWatcher
+
+modules:
+  - name: blender-launcher
+    buildsystem: simple
+    build-commands:
+      - unzip blender-launcher-ubuntu.zip -d extracted/
+      - install -Dm755 "extracted/Blender Launcher" /app/bin/blender-launcher
+      - unzip blender-launcher-linux.zip -d extracted-linux/
+      - install -Dm644 extracted-linux/extras/blenderlauncher.desktop /app/share/applications/io.github.VictorIX.BlenderLauncherV2.desktop
+      - install -Dm644 extracted-linux/source/resources/icons/bl/bl_128.png /app/share/icons/hicolor/128x128/apps/io.github.VictorIX.BlenderLauncherV2.png
+      - desktop-file-edit --set-key=Icon --set-value=io.github.VictorIX.BlenderLauncherV2
+          --set-key=Exec --set-value=blender-launcher
+          /app/share/applications/io.github.VictorIX.BlenderLauncherV2.desktop
+    sources:
+      - type: file
+        path: blender-launcher-ubuntu.zip
+        sha256: 582d24730ac4713e2ce8af0b3ec982a3d32e05a0ff7302a3a0f6570c7d815fdd
+      - type: file
+        path: blender-launcher.zip
+        dest-filename: blender-launcher-linux.zip
+        sha256: 545dda22a203e16a49d6bee7a0ec9bc2434fe48cf36fc2837a0809751eafafe2
