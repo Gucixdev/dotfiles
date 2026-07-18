@@ -5,7 +5,7 @@ configuration {
     show-icons:                 true;
     icon-theme:                 "breeze-dark";
     /* THEME:BEGIN config-font - generowane przez ~/dev/rice/theme, nie edytuj recznie */
-    font:                       "TempleOS Bitmap 11";
+    font:                       "TempleOS 20";
 /* THEME:END config-font */
     display-drun:               "";
     display-calc:               "";
@@ -21,7 +21,7 @@ configuration {
     accent:                     #00ff88ff;
     accent-dim:                 #00ff8833;
     text-selected:              #000000ff;
-    font:                       "TempleOS Bitmap 11";
+    font:                       "TempleOS 20";
     radius:                     0px;
     radius-sm:                  0px;
 /* THEME:END */
