@@ -4,7 +4,9 @@ configuration {
     modes:                      "drun,calc";
     show-icons:                 true;
     icon-theme:                 "breeze-dark";
+    /* THEME:BEGIN config-font - generowane przez ~/dev/rice/theme/apply, nie edytuj recznie */
     font:                       "MesloLGM Nerd Font Mono 11";
+/* THEME:END config-font */
     display-drun:               "";
     display-calc:               "";
     display-window:             "";
@@ -12,13 +14,16 @@ configuration {
 }
 
 * {
-    /* THEME:BEGIN - generowane przez ~/dev/github/rice/theme/apply, nie edytuj recznie */
+    /* THEME:BEGIN - generowane przez ~/dev/rice/theme/apply, nie edytuj recznie */
     bg:                         #000000e6;
-    bg-alt:                     #111111ff;
+    bg-alt:                     #000000ff;
     fg:                         #e0e0e0ff;
     accent:                     #00ff88ff;
     accent-dim:                 #00ff8833;
     text-selected:              #000000ff;
+    font:                       "MesloLGM Nerd Font Mono 11";
+    radius:                     0px;
+    radius-sm:                  0px;
 /* THEME:END */
 
     background-color:           transparent;
@@ -32,7 +37,7 @@ window {
     background-color:           @bg;
     border:                     2px;
     border-color:                @accent;
-    border-radius:               10px;
+    border-radius:               @radius;
     padding:                    0px;
 }
 
@@ -46,7 +51,7 @@ mainbox {
 inputbar {
     background-color:           @bg-alt;
     text-color:                 @accent;
-    border-radius:               6px;
+    border-radius:               @radius-sm;
     padding:                    10px 12px;
     spacing:                    8px;
     children:                   [ prompt, entry ];
@@ -54,7 +59,7 @@ inputbar {
 
 prompt {
     text-color:                 @accent;
-    font:                       "MesloLGM Nerd Font Mono 11";
+    font:                       @font;
 }
 
 entry {
@@ -75,7 +80,7 @@ listview {
 element {
     background-color:           transparent;
     text-color:                 @fg;
-    border-radius:               6px;
+    border-radius:               @radius-sm;
     padding:                    8px 10px;
     spacing:                    10px;
 }
@@ -99,6 +104,6 @@ error-message {
     text-color:                 @accent;
     border:                     2px;
     border-color:                @accent;
-    border-radius:               10px;
+    border-radius:               @radius;
     padding:                    14px;
 }
