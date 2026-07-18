@@ -1,15 +1,102 @@
+/* wlasny motyw od zera - hacker green na czerni, spojny z foot/hyprland */
+
 configuration {
-    show-icons: true;
-    icon-theme: "breeze-dark";
+    modes:                      "drun,calc";
+    show-icons:                 true;
+    icon-theme:                 "breeze-dark";
+    font:                       "MesloLGM Nerd Font Mono 11";
+    display-drun:               "";
+    display-calc:               "";
+    display-window:             "";
+    drun-display-format:        "{name}";
 }
 
-@theme "Arc-Dark"
-
 * {
-    foreground:             #00ff88;
-    text-color:             #00ff88;
+    bg:                         #000000e6;
+    bg-alt:                     #111111ff;
+    fg:                         #e0e0e0ff;
+    accent:                     #00ff88ff;
+    accent-dim:                 #00ff8833;
+    text-selected:              #000000ff;
+
+    background-color:           transparent;
+    text-color:                 @fg;
+}
+
+window {
+    location:                   center;
+    anchor:                     center;
+    width:                      560px;
+    background-color:           @bg;
+    border:                     2px;
+    border-color:                @accent;
+    border-radius:               10px;
+    padding:                    0px;
+}
+
+mainbox {
+    background-color:           transparent;
+    padding:                    14px;
+    spacing:                    10px;
+    children:                   [ inputbar, listview ];
+}
+
+inputbar {
+    background-color:           @bg-alt;
+    text-color:                 @accent;
+    border-radius:               6px;
+    padding:                    10px 12px;
+    spacing:                    8px;
+    children:                   [ prompt, entry ];
+}
+
+prompt {
+    text-color:                 @accent;
+    font:                       "MesloLGM Nerd Font Mono 11";
+}
+
+entry {
+    placeholder:                "Szukaj...";
+    placeholder-color:          #666666ff;
+    text-color:                 @fg;
+}
+
+listview {
+    background-color:           transparent;
+    lines:                      8;
+    columns:                    1;
+    spacing:                    2px;
+    fixed-height:               false;
+    scrollbar:                  false;
+}
+
+element {
+    background-color:           transparent;
+    text-color:                 @fg;
+    border-radius:               6px;
+    padding:                    8px 10px;
+    spacing:                    10px;
 }
 
 element selected {
-    text-color:             #111111;
+    background-color:           @accent;
+    text-color:                 @text-selected;
+}
+
+element-icon {
+    size:                       22px;
+    vertical-align:              0.5;
+}
+
+element-text {
+    vertical-align:              0.5;
+}
+
+error-message {
+    background-color:           @bg;
+    text-color:                 @accent;
+    border:                     2px;
+    border-color:                @accent;
+    border-radius:               10px;
+    padding:                    14px;
 }
