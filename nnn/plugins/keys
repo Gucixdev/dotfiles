@@ -14,8 +14,11 @@ NNN — ŚCIĄGA ZE SKRÓTÓW  (pełny oryginał: klawisz ?)
 NAWIGACJA
   k, Up            poprzedni           PgUp, ^U        strona w górę
   j, Down          następny            PgDn, ^D        strona w dół
-  h, Left          rodzic (wyżej)      ~ ` @ -         HOME, /, start, poprzedni
-  l, Enter, Right  otwórz              '               pierwszy plik/dopasowanie
+  Left             rodzic (wyżej)      ~ ` @ -         HOME, /, start, poprzedni
+  Enter, Right     otwórz              '               pierwszy plik/dopasowanie
+  h                [PATCH] toggle ukryte pliki (zamiast SEL_BACK)
+  l                [PATCH] toggle widoczność symlinków (zamiast SEL_NAV_IN)
+                   nawigacja hjkl -> uzywaj strzalek zamiast h/l (patrz .dotfiles/nnn/patch/)
   g, ^A            góra listy          J               skocz do wpisu/offsetu
   G, ^E            koniec listy        ^J              auto-advance po otwarciu (on/off)
   B, (, )          bookmark            b, ^/           wybierz bookmark
@@ -51,15 +54,20 @@ RÓŻNE
   ^L               odśwież ekran       ?               ten help / config (wbudowany)
 
 ------------------------------------------------------
-TWOJE USTAWIENIA (ten setup, ~/.dotfiles/.bashrc)
+TWOJE USTAWIENIA (ten setup, ~/.dotfiles/shell/.bashrc)
 ------------------------------------------------------
   n <dir>          bash: uruchamia nnn -Hdiu (hidden+detail+info+user na stałe)
   NNN_TRASH=1      ^x/x kasuje do kosza, nie na twardo
   NNN_OPENER       ~/.config/src/opener
 
+  UWAGA: binarka nnn to patchowany build (~/.local/bin/nnn, przed /usr/bin
+  w PATH). Patch + skrypt build w ~/.dotfiles/nnn/patch/. Po update nnn
+  w pacmanie odpal ~/.dotfiles/nnn/patch/build zeby przebudowac.
+
 PLUGINY (Alt+; potem klawisz)
   l                symlink   — stwórz link symboliczny do zaznaczonych
   k                ten cheat-sheet
+  t                thumbs    — siatka miniatur biezacego katalogu (nsxiv -t, osobne okno X)
 
 q / Esc — zamknij ten widok
 EOF

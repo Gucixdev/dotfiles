@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Siatka miniatur biezacego katalogu przez nsxiv (tryb thumbnail),
+# odpowiednik widoku ikon w Thunarze. Otwiera sie w osobnym oknie X,
+# nnn od razu wraca do dzialania (nie blokuje terminala).
+#
+# Run: ;t
+
+setsid nsxiv -t "$PWD" >/dev/null 2>&1 &
+disown

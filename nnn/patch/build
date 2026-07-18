@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Buduje nnn z patchem hl-toggle.diff (h = toggle hidden, l = toggle symlink)
+# i instaluje do ~/.local/bin/nnn (przed /usr/bin w PATH, nie rusza pakietu pacmana).
+#
+# Uzyj przy aktualizacji nnn: podmien VERSION, sprobuj zaaplikowac patch,
+# jesli sie nie zaaplikuje - poprawic recznie wg diffa (bindings[] w src/nnn.h,
+# cfg.hidesymlink w src/nnn.c, case SEL_SYMLINK, filtr w dentfill()).
+set -euo pipefail
+
+VERSION="v5.2"
+SRC_DIR="/tmp/nnn-build-src"
+PATCH_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+rm -rf "$SRC_DIR"
+git clone --depth 1 --branch "$VERSION" https://github.com/jarun/nnn.git "$SRC_DIR"
+cd "$SRC_DIR"
+git apply "$PATCH_DIR/hl-toggle.diff"
+make O_NORL=1 -j"$(nproc)"
+
+mkdir -p "$HOME/.local/bin"
+install -m 755 nnn "$HOME/.local/bin/nnn"
+echo "Zainstalowano: $HOME/.local/bin/nnn ($("$HOME/.local/bin/nnn" -V))"

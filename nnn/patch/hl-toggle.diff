@@ -1,0 +1,82 @@
+diff --git a/src/nnn.c b/src/nnn.c
+index 108e299..1e0bdca 100644
+--- a/src/nnn.c
++++ b/src/nnn.c
+@@ -356,7 +356,7 @@ typedef struct {
+ 	uint_t blkorder   : 1;  /* Set to sort by blocks used (disk usage) */
+ 	uint_t extnorder  : 1;  /* Order by extension */
+ 	uint_t showhidden : 1;  /* Set to show hidden files */
+-	uint_t reserved0  : 1;
++	uint_t hidesymlink : 1; /* Set to hide symlinks */
+ 	uint_t showdetail : 1;  /* Clear to show lesser file info */
+ 	uint_t ctxactive  : 1;  /* Context active or not */
+ 	uint_t reverse    : 1;  /* Reverse sort */
+@@ -6768,6 +6768,15 @@ static int dentfill(char *path, struct entry **ppdents)
+ 				entflags = SYM_ORPHAN;
+ 		}
+ 
++		if (cfg.hidesymlink) {
++#if !(defined(__sun) || defined(__HAIKU__))
++			if (!flags ? dp->d_type == DT_LNK : S_ISLNK(sb.st_mode))
++#else
++			if (S_ISLNK(sb.st_mode))
++#endif
++				continue;
++		}
++
+ 		if (ndents == total_dents) {
+ 			if (cfg.blkorder) {
+ 				pthread_mutex_lock(&running_mutex);
+@@ -8356,6 +8365,7 @@ nochange:
+ 			goto nochange;
+ 		case SEL_MFLTR: // fallthrough
+ 		case SEL_HIDDEN: // fallthrough
++		case SEL_SYMLINK: // fallthrough
+ 		case SEL_DETAIL: // fallthrough
+ 		case SEL_SORT:
+ 			switch (sel) {
+@@ -8378,6 +8388,16 @@ nochange:
+ 				copycurname();
+ 				cd = FALSE;
+ 				goto begin;
++			case SEL_SYMLINK:
++				if (sel == SEL_SYMLINK) {
++					cfg.hidesymlink ^= 1;
++					if (cfg.filtermode)
++						presel = FILTER;
++					clearfilter();
++				}
++				copycurname();
++				cd = FALSE;
++				goto begin;
+ 			case SEL_DETAIL:
+ 				cfg.showdetail ^= 1;
+ 				cfg.blkorder = 0;
+diff --git a/src/nnn.h b/src/nnn.h
+index 5f74909..d61c942 100644
+--- a/src/nnn.h
++++ b/src/nnn.h
+@@ -80,6 +80,7 @@ enum action {
+ 	SEL_FLTR,
+ 	SEL_MFLTR,
+ 	SEL_HIDDEN,
++	SEL_SYMLINK,
+ 	SEL_DETAIL,
+ 	SEL_STATS,
+ 	SEL_CHMODX,
+@@ -132,13 +133,13 @@ struct key {
+ static struct key bindings[] = {
+ 	/* Back */
+ 	{ KEY_LEFT,       SEL_BACK },
+-	{ 'h',            SEL_BACK },
++	{ 'h',            SEL_HIDDEN },
+ 	/* Inside or select */
+ 	{ KEY_ENTER,      SEL_OPEN },
+ 	{ '\r',           SEL_OPEN },
+ 	/* Pure navigate inside */
+ 	{ KEY_RIGHT,      SEL_NAV_IN },
+-	{ 'l',            SEL_NAV_IN },
++	{ 'l',            SEL_SYMLINK },
+ 	/* Next */
+ 	{ 'j',            SEL_NEXT },
+ 	{ KEY_DOWN,       SEL_NEXT },
