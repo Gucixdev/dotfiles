@@ -5,7 +5,7 @@ configuration {
     show-icons:                 true;
     icon-theme:                 "breeze-dark";
     /* THEME:BEGIN config-font - generowane przez ~/dev/rice/theme, nie edytuj recznie */
-    font:                       "MesloLGM Nerd Font Mono 11";
+    font:                       "TempleOS 11";
 /* THEME:END config-font */
     display-drun:               "";
     display-calc:               "";
@@ -17,11 +17,11 @@ configuration {
     /* THEME:BEGIN - generowane przez ~/dev/rice/theme, nie edytuj recznie */
     bg:                         #000000e6;
     bg-alt:                     #000000ff;
-    fg:                         #e0e0e0ff;
+    fg:                         #00ff88ff;
     accent:                     #00ff88ff;
     accent-dim:                 #00ff8833;
     text-selected:              #000000ff;
-    font:                       "MesloLGM Nerd Font Mono 11";
+    font:                       "TempleOS 11";
     radius:                     0px;
     radius-sm:                  0px;
 /* THEME:END */
