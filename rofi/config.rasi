@@ -5,7 +5,7 @@ configuration {
     show-icons:                 true;
     icon-theme:                 "breeze-dark";
     /* THEME:BEGIN config-font - generowane przez ~/dev/rice/theme, nie edytuj recznie */
-    font:                       "TempleOS 11";
+    font:                       "TempleOS Bitmap 11";
 /* THEME:END config-font */
     display-drun:               "";
     display-calc:               "";
@@ -21,7 +21,7 @@ configuration {
     accent:                     #00ff88ff;
     accent-dim:                 #00ff8833;
     text-selected:              #000000ff;
-    font:                       "TempleOS 11";
+    font:                       "TempleOS Bitmap 11";
     radius:                     0px;
     radius-sm:                  0px;
 /* THEME:END */
@@ -88,6 +88,20 @@ element {
     border-radius:               @radius-sm;
     padding:                    8px 10px;
     spacing:                    10px;
+}
+
+/* rofi ma wbudowane element normal.normal / alternate.normal / selected.normal
+   z ta sama specyficznoscia co ponizsze, ktore ida do wlasnych zmiennych
+   (background/lightbg/lightfg) niepowiazanych z @bg/@accent - trzeba je
+   nadpisac jawnie, samo "element {}" i "element selected {}" nie wystarcza */
+element normal.normal, element alternate.normal {
+    background-color:           transparent;
+    text-color:                 @fg;
+}
+
+element selected.normal {
+    background-color:           @accent;
+    text-color:                 @text-selected;
 }
 
 element selected {
