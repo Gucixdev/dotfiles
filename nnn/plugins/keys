@@ -18,7 +18,7 @@ NAWIGACJA
   Enter, Right     otwórz              '               pierwszy plik/dopasowanie
   h                [PATCH] toggle ukryte pliki (zamiast SEL_BACK)
   l                [PATCH] toggle widoczność symlinków (zamiast SEL_NAV_IN)
-                   nawigacja hjkl -> uzywaj strzalek zamiast h/l (patrz .dotfiles/nnn/patch/)
+                   nawigacja hjkl -> uzywaj strzalek zamiast h/l (patrz ~/dev/forked/nnn (branch drbongo-hl-toggle))
   g, ^A            góra listy          J               skocz do wpisu/offsetu
   G, ^E            koniec listy        ^J              auto-advance po otwarciu (on/off)
   B, (, )          bookmark            b, ^/           wybierz bookmark
@@ -61,8 +61,8 @@ TWOJE USTAWIENIA (ten setup, ~/.dotfiles/shell/.bashrc)
   NNN_OPENER       ~/.config/src/opener
 
   UWAGA: binarka nnn to patchowany build (~/.local/bin/nnn, przed /usr/bin
-  w PATH). Patch + skrypt build w ~/.dotfiles/nnn/patch/. Po update nnn
-  w pacmanie odpal ~/.dotfiles/nnn/patch/build zeby przebudowac.
+  w PATH). Fork + skrypt build w ~/dev/forked/nnn (branch drbongo-hl-toggle). Po update nnn
+  w pacmanie: git fetch+rebase branch, potem odpal ~/dev/forked/nnn/build.
 
 PLUGINY (Alt+; potem klawisz)
   l                symlink   — stwórz link symboliczny do zaznaczonych
