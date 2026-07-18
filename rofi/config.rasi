@@ -4,7 +4,7 @@ configuration {
     modes:                      "drun,calc";
     show-icons:                 true;
     icon-theme:                 "breeze-dark";
-    /* THEME:BEGIN config-font - generowane przez ~/dev/rice/theme/apply, nie edytuj recznie */
+    /* THEME:BEGIN config-font - generowane przez ~/dev/rice/apply, nie edytuj recznie */
     font:                       "MesloLGM Nerd Font Mono 11";
 /* THEME:END config-font */
     display-drun:               "";
@@ -14,7 +14,7 @@ configuration {
 }
 
 * {
-    /* THEME:BEGIN - generowane przez ~/dev/rice/theme/apply, nie edytuj recznie */
+    /* THEME:BEGIN - generowane przez ~/dev/rice/apply, nie edytuj recznie */
     bg:                         #000000e6;
     bg-alt:                     #000000ff;
     fg:                         #e0e0e0ff;
