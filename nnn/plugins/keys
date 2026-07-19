@@ -57,7 +57,7 @@ RÓŻNE
 TWOJE USTAWIENIA (ten setup, ~/.dotfiles/shell/.bashrc)
 ------------------------------------------------------
   n <dir>          bash: uruchamia nnn -Hdiu (hidden+detail+info+user na stałe)
-  NNN_TRASH=1      ^x/x kasuje do kosza, nie na twardo
+  NNN_TRASH=2      ^x/x kasuje do kosza przez gio trash, nie na twardo
   NNN_OPENER       ~/.config/src/opener
 
   UWAGA: binarka nnn to patchowany build (~/.local/bin/nnn, przed /usr/bin
