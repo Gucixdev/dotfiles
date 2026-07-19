@@ -4,7 +4,7 @@
 [[ $- != *i* ]] && return
 #----------------------------------------------------------------------------------------------------------------------
 #ENV
-export PATH="$HOME/.local/bin:$HOME/dev/bash:$HOME/dev/bash/ezlib:$HOME/dev/bash/distrobuild:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 export QT_QPA_PLATFORMTHEME=qt6ct
 export GTK_THEME=Breeze-Dark
 export EDITOR=smart-edit
