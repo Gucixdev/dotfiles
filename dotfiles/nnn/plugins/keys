@@ -19,6 +19,7 @@ NAWIGACJA
   h                [PATCH] toggle ukryte pliki (zamiast SEL_BACK)
   l                [PATCH] toggle widoczność symlinków (zamiast SEL_NAV_IN)
                    nawigacja hjkl -> uzywaj strzalek zamiast h/l (patrz ~/.dotfiles/forked/nnn (branch drbongo-hl-toggle))
+                   [uwaga: ten plik teraz w ~/.dotfiles/dotfiles/nnn/, forked/ zostal na miejscu]
   g, ^A            góra listy          J               skocz do wpisu/offsetu
   G, ^E            koniec listy        ^J              auto-advance po otwarciu (on/off)
   B, (, )          bookmark            b, ^/           wybierz bookmark
@@ -54,7 +55,7 @@ RÓŻNE
   ^L               odśwież ekran       ?               ten help / config (wbudowany)
 
 ------------------------------------------------------
-TWOJE USTAWIENIA (ten setup, ~/.dotfiles/shell/.bashrc)
+TWOJE USTAWIENIA (ten setup, ~/.dotfiles/dotfiles/bash/.bashrc)
 ------------------------------------------------------
   n <dir>          bash: uruchamia nnn -Hdiu (hidden+detail+info+user na stałe)
   NNN_TRASH=2      ^x/x kasuje do kosza przez gio trash, nie na twardo

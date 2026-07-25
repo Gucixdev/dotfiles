@@ -1,0 +1,19 @@
+/* generowane przez ~/dev/rice/theme, nie edytuj recznie */
+
+@define-color theme_bg_color_breeze #000000;
+@define-color theme_base_color_breeze #000000;
+@define-color theme_fg_color_breeze #00ff88;
+@define-color theme_text_color_breeze #00ff88;
+@define-color theme_selected_bg_color_breeze #00ff88;
+@define-color theme_hovering_selected_bg_color_breeze #00ff88;
+@define-color theme_view_hover_decoration_color_breeze #00ff88;
+@define-color theme_view_active_decoration_color_breeze #00ff88;
+@define-color theme_selected_fg_color_breeze #000000;
+@define-color theme_unfocused_bg_color_breeze #000000;
+@define-color theme_unfocused_base_color_breeze #000000;
+@define-color theme_unfocused_fg_color_breeze #00ff88;
+@define-color theme_unfocused_text_color_breeze #00ff88;
+
+button, entry, .titlebutton, popover {
+    border-radius: 0px;
+}

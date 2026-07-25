@@ -1,0 +1,22 @@
+/* generowane przez ~/dev/rice/theme, nie edytuj recznie */
+
+:root {
+    --accent-color: #00ff88;
+    --accent-bg-color: #00ff88;
+    --accent-fg-color: #000000;
+    --window-bg-color: #000000;
+    --window-fg-color: #00ff88;
+    --view-bg-color: #000000;
+    --view-fg-color: #00ff88;
+}
+
+@define-color theme_bg_color_breeze #000000;
+@define-color theme_base_color_breeze #000000;
+@define-color theme_fg_color_breeze #00ff88;
+@define-color theme_text_color_breeze #00ff88;
+@define-color theme_selected_bg_color_breeze #00ff88;
+@define-color theme_selected_fg_color_breeze #000000;
+
+button, entry {
+    border-radius: 0px;
+}
