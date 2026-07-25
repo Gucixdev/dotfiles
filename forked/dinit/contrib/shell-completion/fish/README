@@ -1,0 +1,6 @@
+Fish shell completion for Dinit
+===============================
+
+Currently only covers dinitctl, but it does so fairly thoroughly.
+
+To install, copy the file into `~/.config/fish/completions/`.

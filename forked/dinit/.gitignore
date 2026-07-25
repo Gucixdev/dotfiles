@@ -1,0 +1,34 @@
+.*
+!.mailmap
+*.o
+/src/**/*.d
+/src/dinit
+/src/dinitctl
+/src/dinit-check
+/src/dinit-monitor
+/src/shutdown
+/src/tests/tests
+/src/tests/proctests
+/src/tests/loadtests
+/src/tests/envtests
+/src/tests/iostreamtests
+/src/tests/cptests/cptests
+/src/tests/cptests/corpus
+/src/tests/cptests/fuzz
+/src/igr-tests/igr-runner
+/src/igr-tests/igr-output
+!/src/igr-tests/xdg-config/config/dinit.d/
+/mconfig
+
+/build/includes/*.h
+/build/tools/mconfig-gen
+
+# Integration test output:
+/src/igr-tests/*/output/**
+/src/igr-tests/reload1/sd
+/src/igr-tests/reload2/sd
+
+# Generated man pages:
+/doc/manpages/*.5
+/doc/manpages/*.8
+/doc/manpages/html/*
