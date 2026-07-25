@@ -1,0 +1,7 @@
+*.zip
+build/
+.flatpak-builder/
+extracted/
+extracted-linux/
+path/
+nohup.out
