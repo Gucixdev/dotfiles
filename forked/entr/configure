@@ -1,0 +1,41 @@
+#!/bin/sh
+
+copy_mk() {
+	cmd="cp Makefile.$1 Makefile"
+	echo "+ $cmd"; $cmd
+}
+
+usage() {
+	cat <<-HELP
+	Usage: configure [-h]
+	Example: build a static binary and install to your home directory
+
+	./configure
+	CFLAGS="-static" make
+	PREFIX=\$HOME/local make install
+	HELP
+	exit 1
+}
+
+while [ $# -gt 0 ]; do
+	case $1 in
+		-h) usage ;;
+		 *) echo "configure: unused argument: $1" ;;
+	esac
+	shift
+done
+
+case "${TARGET_OS:-`uname`}" in
+	Darwin)
+		copy_mk macos
+		;;
+	FreeBSD)
+		copy_mk freebsd
+		;;
+	Linux)
+		copy_mk linux
+		;;
+	*)
+		copy_mk bsd
+		;;
+esac
