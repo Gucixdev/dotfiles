@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+
+# Description: Cheat-sheet of nnn keybindings, decoded from the real ? screen
+#              compiled into this nnn build, plus this setup's own additions.
+#              Run: Alt+; then k
+#
+# Shell: bash
+# Author: drbongo (via Claude)
+
+${PAGER:-less} <<'EOF'
+NNN — ŚCIĄGA ZE SKRÓTÓW  (pełny oryginał: klawisz ?)
+======================================================
+
+NAWIGACJA
+  k, Up            poprzedni           PgUp, ^U        strona w górę
+  j, Down          następny            PgDn, ^D        strona w dół
+  Left             rodzic (wyżej)      ~ ` @ -         HOME, /, start, poprzedni
+  Enter, Right     otwórz              '               pierwszy plik/dopasowanie
+  h                [PATCH] toggle ukryte pliki (zamiast SEL_BACK)
+  l                [PATCH] toggle widoczność symlinków (zamiast SEL_NAV_IN)
+                   nawigacja hjkl -> uzywaj strzalek zamiast h/l (patrz ~/.dotfiles/forked/nnn (branch drbongo-hl-toggle))
+                   [uwaga: ten plik teraz w ~/.dotfiles/dotfiles/nnn/, forked/ zostal na miejscu]
+  g, ^A            góra listy          J               skocz do wpisu/offsetu
+  G, ^E            koniec listy        ^J              auto-advance po otwarciu (on/off)
+  B, (, )          bookmark            b, ^/           wybierz bookmark
+  1-4              kontekst            Tab, Shift+Tab  cykl/nowy kontekst
+  Esc, ^Q          wyjście             ^Y              następny "young" (ostatnio zmieniony)
+  ^G               QuitCD              Q               pick/err, wyjście
+  q                zamknij kontekst
+
+FILTR / PROMPT
+  /                filtruj             ^N              przełącz type-to-nav
+  Esc              wyjdź z filtra      ^L              przełącz ostatni filtr
+  .                ukryte pliki (on/off)   Alt+Esc     wyczyść filtr, zamknij kontekst
+
+PLIKI
+  o, ^O            otwórz z...         n               nowy plik/link
+  f, ^F            statystyki pliku    d               tryb detail (on/off)
+  ^R               zmień nazwę/dup     r               batch rename
+  z                archiwizuj          e               edytuj plik
+  *                toggle exe          >               eksportuj listę
+  Space, +         (od)zaznacz         m ... m         zaznacz zakres / wyczyść
+  a                zaznacz wszystko    A               odwróć zaznaczenie
+  p, ^P            kopiuj tutaj        w, ^W           kopiuj/przenieś zaznaczone jako...
+  v, ^V            przenieś tutaj      E               edytuj listę zaznaczonych
+  x, ^X            usuń / do kosza     S               rozmiar zaznaczonych
+  X                usuń na twardo (rm -rf)  Esc        wyślij do FIFO (podgląd)
+
+RÓŻNE
+  Alt+;            wybierz plugin      =               uruchom appkę GUI
+  !, ^]            powłoka tutaj       ]               prompt komendy
+  c                połącz zdalny (sshfs/rclone)  u     odmontuj zdalny/archiwum
+  t, ^T            przełącz sortowanie s            zarządzaj sesją
+  T                typ czasu (a/c/m)   0               zablokuj (lock)
+  ^L               odśwież ekran       ?               ten help / config (wbudowany)
+
+------------------------------------------------------
+TWOJE USTAWIENIA (ten setup, ~/.dotfiles/dotfiles/bash/.bashrc)
+------------------------------------------------------
+  n <dir>          bash: uruchamia nnn -Hdiu (hidden+detail+info+user na stałe)
+  NNN_TRASH=2      ^x/x kasuje do kosza przez gio trash, nie na twardo
+  NNN_OPENER       ~/.config/src/opener
+
+  UWAGA: binarka nnn to patchowany build (~/.local/bin/nnn, przed /usr/bin
+  w PATH). Fork + skrypt build w ~/.dotfiles/forked/nnn (branch drbongo-hl-toggle). Po update nnn
+  w pacmanie: git fetch+rebase branch, potem odpal ~/.dotfiles/forked/nnn/build.
+
+PLUGINY (Alt+; potem klawisz)
+  l                symlink   — stwórz link symboliczny do zaznaczonych
+  k                ten cheat-sheet
+  t                thumbs    — siatka miniatur biezacego katalogu (nsxiv -t, osobne okno X)
+
+q / Esc — zamknij ten widok
+EOF

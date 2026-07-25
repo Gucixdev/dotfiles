@@ -2,4 +2,4 @@
 .claude/
 .claude.json
 .claude.json.tmp*
-gh/hosts.yml
+dotfiles/gh/hosts.yml

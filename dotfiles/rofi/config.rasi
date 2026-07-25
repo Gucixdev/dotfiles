@@ -1,0 +1,140 @@
+/* wlasny motyw od zera - hacker green na czerni, spojny z foot/hyprland */
+
+configuration {
+    modes:                      "drun,calc";
+    show-icons:                 true;
+    icon-theme:                 "breeze-dark";
+    /* THEME:BEGIN config-font - generowane przez ~/dev/rice/theme, nie edytuj recznie */
+    font:                       "TempleOS 14";
+/* THEME:END config-font */
+    display-drun:               "";
+    display-calc:               "";
+    display-window:             "";
+    drun-display-format:        "{name}";
+}
+
+* {
+    /* THEME:BEGIN - generowane przez ~/dev/rice/theme, nie edytuj recznie */
+    bg:                         #000000e6;
+    bg-alt:                     #000000ff;
+    fg:                         #00ff88ff;
+    accent:                     #00ff88ff;
+    accent-dim:                 #00ff8833;
+    text-selected:              #000000ff;
+    font:                       "TempleOS 14";
+    radius:                     0px;
+    radius-sm:                  0px;
+/* THEME:END */
+
+    background-color:           transparent;
+    text-color:                 @fg;
+}
+
+window {
+    location:                   center;
+    anchor:                     center;
+    width:                      560px;
+    background-color:           @bg;
+    border:                     2px;
+    border-color:                @accent;
+    border-radius:               @radius;
+    padding:                    0px;
+}
+
+mainbox {
+    background-color:           transparent;
+    padding:                    14px;
+    spacing:                    10px;
+    children:                   [ inputbar, listview, mode-switcher ];
+}
+
+mode-switcher {
+    background-color:           transparent;
+    spacing:                    6px;
+}
+
+inputbar {
+    background-color:           @bg-alt;
+    text-color:                 @accent;
+    border-radius:               @radius-sm;
+    padding:                    10px 12px;
+    spacing:                    8px;
+    children:                   [ prompt, entry ];
+}
+
+prompt {
+    text-color:                 @accent;
+    font:                       @font;
+}
+
+entry {
+    placeholder:                "Szukaj...";
+    placeholder-color:          #666666ff;
+    text-color:                 @fg;
+}
+
+listview {
+    background-color:           transparent;
+    lines:                      8;
+    columns:                    1;
+    spacing:                    2px;
+    fixed-height:               false;
+    scrollbar:                  false;
+}
+
+element {
+    background-color:           transparent;
+    text-color:                 @fg;
+    border-radius:               @radius-sm;
+    padding:                    8px 10px;
+    spacing:                    10px;
+}
+
+/* rofi ma wbudowane element normal.normal / alternate.normal / selected.normal
+   z ta sama specyficznoscia co ponizsze, ktore ida do wlasnych zmiennych
+   (background/lightbg/lightfg) niepowiazanych z @bg/@accent - trzeba je
+   nadpisac jawnie, samo "element {}" i "element selected {}" nie wystarcza */
+element normal.normal, element alternate.normal {
+    background-color:           transparent;
+    text-color:                 @fg;
+}
+
+element selected.normal {
+    background-color:           @accent;
+    text-color:                 @text-selected;
+}
+
+element selected {
+    background-color:           @accent;
+    text-color:                 @text-selected;
+}
+
+button {
+    background-color:           @bg-alt;
+    text-color:                 @fg;
+    border-radius:               @radius-sm;
+    padding:                    6px 12px;
+}
+
+button selected {
+    background-color:           @accent;
+    text-color:                 @text-selected;
+}
+
+element-icon {
+    size:                       22px;
+    vertical-align:              0.5;
+}
+
+element-text {
+    vertical-align:              0.5;
+}
+
+error-message {
+    background-color:           @bg;
+    text-color:                 @accent;
+    border:                     2px;
+    border-color:                @accent;
+    border-radius:               @radius;
+    padding:                    14px;
+}

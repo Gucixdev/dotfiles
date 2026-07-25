@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Tworzy symlinki zaznaczonych plikow w biezacym katalogu
+
+sel="${NNN_SEL:-${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.selection}"
+target="$PWD"
+
+if [ ! -s "$sel" ]; then
+    echo "Brak zaznaczonych plikow (zaznacz przez spacje)"
+    read -r
+    exit 0
+fi
+
+count=0
+while IFS= read -r -d '' file; do
+    ln -sf "$file" "$target/$(basename "$file")" && count=$((count+1))
+done < "$sel"
+
+echo "Utworzono $count symlink(ow) w $target"
+read -r
