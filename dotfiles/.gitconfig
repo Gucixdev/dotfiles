@@ -1,7 +1,6 @@
-[user]
-	name = Gucixdev
-	email = 121381519+Gucixdev@users.noreply.github.com
-	signingkey = 28B5D550ECB23AF3FA7FF75A1BF4674B46520F5E
+# identity (name, email, signing key) lives in ~/.gitconfig.local, outside this repo
+[include]
+	path = ~/.gitconfig.local
 [commit]
 	gpgsign = true
 [gpg]

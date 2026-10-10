@@ -101,6 +101,13 @@ alias suod='sudo'
 PS1="\u:\w\$ "
 
 #EXTERNAL SOURCES
-# shellcheck source=/home/drbongo/.local/bin/env
+# shellcheck source=/dev/null
 . "$HOME/.local/share/../bin/env"
 
+# secrets: tokens and API keys live in ~/.secrets (mode 600, outside any repo)
+if [ -r "$HOME/.secrets" ]; then
+    set -a
+    # shellcheck source=/dev/null
+    . "$HOME/.secrets"
+    set +a
+fi

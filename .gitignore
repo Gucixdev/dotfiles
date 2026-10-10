@@ -14,3 +14,4 @@ dotfiles/emacs/.mc-lists.el
 # emacs autosave/lock files - can appear anywhere a buffer is open live
 */#*#
 *~
+.secrets
