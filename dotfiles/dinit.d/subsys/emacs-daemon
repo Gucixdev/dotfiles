@@ -1,0 +1,14 @@
+# emacs --daemon, so emacsclient (Godot's external editor, nnn's
+# opener, smart-edit) always has a server ready instead of eating a
+# ~1-2s cold-start compiling/loading packages on first use each time.
+#
+# Arguably more a per-user session service than a system-boot one (same
+# tradeoff subsys/pipewire and subsys/wireplumber already made here,
+# flagged as PROVISIONAL in pipewire's own file) - a real desktop would
+# want this started per-user, not system-wide at boot. Kept consistent
+# with the existing pattern in this reference set rather than
+# introducing a different convention just for this one file.
+type = process
+command = /usr/bin/emacs --fg-daemon
+restart = true
+depends-on = early-fs
