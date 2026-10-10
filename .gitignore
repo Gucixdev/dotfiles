@@ -10,3 +10,6 @@ dotfiles/emacs/eln-cache/
 dotfiles/emacs/auto-save-list/
 dotfiles/emacs/backups/
 dotfiles/emacs/custom.el
+# emacs autosave/lock files - can appear anywhere a buffer is open live
+*/#*#
+*~
