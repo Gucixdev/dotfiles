@@ -1,0 +1,8 @@
+# firewall rules. Real command verified on the live CachyOS box
+# (systemctl cat ufw.service): ufw-init start just loads the saved
+# iptables rules and exits - a oneshot action, not a daemon, so
+# scripted/restart=false like mountall, not process/restart=true.
+type = scripted
+command = /usr/lib/ufw/ufw-init start
+restart = false
+depends-on = modules

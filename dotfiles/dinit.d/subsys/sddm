@@ -1,0 +1,7 @@
+# display manager - this is what actually gets you to a graphical login
+# screen. Real command verified on the live CachyOS box.
+type = process
+command = /usr/bin/sddm
+restart = true
+depends-on = seatd
+depends-on = dbus

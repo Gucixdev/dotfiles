@@ -1,0 +1,11 @@
+# Not installed on THIS box (it uses iwd directly) so this exec line is
+# the standard non-systemd invocation (same one Void's own runit service
+# for NetworkManager uses), not verified against a live install here.
+# Pairs with iwd as the wifi backend (nmcli general: wifi.backend=iwd in
+# NetworkManager.conf) rather than wpa_supplicant - that's the whole
+# reason both are in the planned stack instead of just iwd alone.
+type = process
+command = /usr/sbin/NetworkManager --no-daemon
+restart = true
+depends-on = dbus
+depends-on = iwd

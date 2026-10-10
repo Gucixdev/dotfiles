@@ -1,0 +1,8 @@
+# auto nice/ionice by process-rule database (e.g. nices down compile
+# jobs, nices up audio/video apps). Real command verified on the live
+# CachyOS box - "start" is ananicy-cpp's own subcommand, not a
+# daemonize flag, it still runs in the foreground.
+type = process
+command = /usr/bin/ananicy-cpp start
+restart = true
+depends-on = early-fs

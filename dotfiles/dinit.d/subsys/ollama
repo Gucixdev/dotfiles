@@ -1,0 +1,8 @@
+# local LLM server. Real command verified on the live CachyOS box
+# (systemctl cat ollama.service): /usr/bin/ollama serve, cwd
+# /var/lib/ollama (that's where it keeps pulled models).
+type = process
+command = /usr/bin/ollama serve
+working-dir = /var/lib/ollama
+restart = true
+depends-on = early-fs

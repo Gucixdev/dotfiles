@@ -1,0 +1,26 @@
+# NOT a dinit service - nvidia-hibernate/resume/suspend.service on the
+# live CachyOS box are systemd-logind sleep hooks (Before=/After=
+# systemd-suspend.service etc), not boot-time daemons. Real commands,
+# verified via `systemctl cat`:
+#
+#   nvidia-sleep.sh suspend    (before sleep)
+#   nvidia-sleep.sh hibernate  (before hibernate)
+#   nvidia-sleep.sh resume     (after either)
+#
+# This dinit.d setup uses seatd (see subsys/seatd), not
+# elogind/systemd-logind, so there is no equivalent hook directory
+# (elogind would have honored /usr/lib/elogind/system-sleep/ the same
+# way systemd does /usr/lib/systemd/system-sleep/ - seatd doesn't do
+# sleep orchestration at all, it's just the seat/device-access backend).
+#
+# Whatever actually triggers suspend on the Void box (a Hyprland
+# keybind, a power-button script, swayidle-equivalent) needs to call
+# these three lines directly, in order, around its own suspend call:
+#
+#   /usr/bin/nvidia-sleep.sh suspend
+#   <the real suspend trigger, e.g. doas zzz, or writing to
+#    /sys/power/state - find/decide this when the Void box exists>
+#   /usr/bin/nvidia-sleep.sh resume
+#
+# Nothing to add to subsys/ for this one until that trigger script
+# exists - then these three lines go inside it, not here.

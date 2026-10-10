@@ -1,0 +1,7 @@
+# creates ~/Desktop, ~/Documents, ~/Downloads etc per XDG spec. Runs
+# once and exits (real command: xdg-user-dirs-update, no daemon mode),
+# so scripted/restart=false like mountall and ufw, not process.
+type = scripted
+command = /usr/bin/xdg-user-dirs-update
+restart = false
+depends-on = early-fs

@@ -1,0 +1,11 @@
+# podman's API socket - systemd socket-activates this on demand
+# (podman.socket -> podman.service only starts podman when something
+# actually connects). dinit has no socket-activation story as simple as
+# that, so this just runs the service always instead - only add this if
+# something actually talks to the podman API socket; if you only use
+# `podman run` etc directly from the CLI, you don't need this at all,
+# podman doesn't need a running daemon for that.
+type = process
+command = /usr/bin/podman system service
+restart = true
+depends-on = early-fs

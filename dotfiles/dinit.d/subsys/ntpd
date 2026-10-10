@@ -1,0 +1,9 @@
+# time sync - systemd-timesyncd has no portable equivalent, openntpd
+# is the standard non-systemd substitute (in official repo, not AUR).
+# -d = don't daemonize/detach, which dinit's process type needs (same
+# reason as every other entry here that isn't already foreground by
+# default).
+type = process
+command = /usr/sbin/ntpd -d
+restart = true
+depends-on = iwd

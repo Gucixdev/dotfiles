@@ -1,0 +1,8 @@
+# PulseAudio-compatible socket for pipewire - most apps still link
+# against libpulse, not libpipewire directly, so this is what makes
+# them actually find audio. Socket-activated under systemd; here it
+# just runs always, same tradeoff as subsys/pipewire itself.
+type = process
+command = /usr/bin/pipewire-pulse
+restart = true
+depends-on = pipewire

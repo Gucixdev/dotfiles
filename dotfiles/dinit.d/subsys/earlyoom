@@ -1,0 +1,9 @@
+# OOM protection - dinit has no systemd-oomd equivalent (that's tied to
+# systemd's own cgroup v2 integration). earlyoom is the standard
+# non-systemd substitute: userspace daemon, polls free mem/swap, kills
+# the biggest offender before the kernel OOM killer has to (which tends
+# to stall the whole system first). In official repo, not AUR.
+type = process
+command = /usr/bin/earlyoom
+restart = true
+depends-on = early-fs
