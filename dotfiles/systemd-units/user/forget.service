@@ -1,0 +1,12 @@
+[Unit]
+Description=forget — automatyczne zadania w tle
+After=graphical.target network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/home/drbongo/.config/src/maintanance
+User=root
+StandardOutput=null
+StandardError=null
+TimeoutStopSec=30
