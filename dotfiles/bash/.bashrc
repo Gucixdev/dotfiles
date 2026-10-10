@@ -10,7 +10,7 @@ export GTK_THEME=Breeze-Dark
 export EDITOR=smart-edit
 export VISUAL=smart-edit
 export FLATPAK_USER_DIR=/data/flatpak
-export NNN_OPENER=~/.config/src/opener
+export NNN_OPENER=/data/dev/setup/base/nnn/scripts/opener
 export NNN_TRASH=2
 export NNN_COLORS='2136'
 export NNN_FCOLORS='c1e2272e006033f7c6d6abc4'
@@ -89,26 +89,13 @@ alias l='ls -p --color=auto'
 alias ll='ls -plh --color=auto'
 alias la='ls -plah --color=auto'
 alias grep='grep --color=auto'
+alias tree='tree -I ".git|.venv|__pycache__|node_modules|.pytest_cache|.mypy_cache|_retired"'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias chomd='chmod'
 alias gerp='grep --color=auto'
 alias suod='sudo'
 
-alias ga='git add . --all'
-alias gb='git branch'
-alias gc='git clone'
-alias gci='git commit -a'
-alias gco='git checkout'
-alias gd="git diff '!*lock'"
-alias gdf='git diff'
-alias gi='git init'
-alias gl='git log'
-alias gp='git push origin HEAD'
-alias gr='git rev-parse --show-toplevel'
-alias gs='git status'
-alias gt='git tag'
-alias gu='git pull'
 #----------------------------------------------------------------------------------------------------------------------
 #PROMPT
 PS1="\u:\w\$ "

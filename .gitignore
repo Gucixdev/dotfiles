@@ -3,3 +3,10 @@
 .claude.json
 .claude.json.tmp*
 dotfiles/gh/hosts.yml
+
+# emacs - wygenerowane paczki/cache, nie config
+dotfiles/emacs/elpa/
+dotfiles/emacs/eln-cache/
+dotfiles/emacs/auto-save-list/
+dotfiles/emacs/backups/
+dotfiles/emacs/custom.el
