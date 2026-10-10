@@ -103,3 +103,4 @@ PS1="\u:\w\$ "
 #EXTERNAL SOURCES
 # shellcheck source=/home/drbongo/.local/bin/env
 . "$HOME/.local/share/../bin/env"
+
