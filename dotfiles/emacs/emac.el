@@ -39,6 +39,16 @@
 (show-paren-mode 1)
 (electric-pair-mode 1)
 
+;; auto-reload a buffer when the file behind it changes on disk (e.g. an
+;; external tool edits it) instead of showing stale content or prompting
+(setq auto-revert-verbose nil)      ; don't spam the minibuffer every reload
+(global-auto-revert-mode 1)
+
+;; real system clipboard for evil's own yank/paste (so "+y / "+p and
+;; plain y/p in visual state all reach wl-copy/wl-paste, not just an
+;; Emacs-internal kill-ring)
+(setq select-enable-clipboard t)
+
 ;; no syntax highlighting - distracting, plain text everywhere
 (global-font-lock-mode 0)
 
@@ -87,21 +97,42 @@
         evil-want-C-u-scroll t
         evil-undo-system 'undo-redo)
   :config
-  (evil-mode 1))
+  (evil-mode 1)
+  ;; classic C-c/C-v, to the real system clipboard. Bound directly in
+  ;; evil's own keymaps (not cua-mode - evil's keymaps win precedence
+  ;; over cua's region-conditional bindings, so cua's C-c/C-v silently
+  ;; never fire while evil-mode is on; confirmed by testing, not a guess).
+  (define-key evil-visual-state-map (kbd "C-c") #'evil-yank)
+  (define-key evil-insert-state-map (kbd "C-v") #'evil-paste-after)
+  (define-key evil-normal-state-map (kbd "C-v") #'evil-paste-after))
 
 (use-package evil-collection
   :after evil
   :config
   (evil-collection-init))         ; evil bindings for magit, dired, etc.
 
+;;; GDB - built in, no LSP involved. M-x gdb, give it a command like
+;;; "gdb --args ./myprog arg1", gdb-many-windows gives the multi-pane
+;;; locals/breakpoints/stack layout.
+(setq gdb-many-windows t
+      gdb-show-main t)
+
+;;; Compile - C-c r runs/builds whatever `compile-command` is for this
+;;; project (set per-project via .dir-locals.el, e.g. "godot --path .")
+;;; so Godot output lands in an Emacs buffer instead of needing the editor.
+(global-set-key (kbd "C-c r") #'compile)
+
 ;;; Org mode
 
 (use-package org
   :ensure nil                     ; built into Emacs, just configuring it
+  :bind ("C-c a" . org-agenda)
   :config
   (setq org-startup-indented t
         org-hide-emphasis-markers t
-        org-ellipsis " ▾"))
+        org-ellipsis " ▾"
+        org-todo-keywords '((sequence "TODO" "IN-PROGRESS" "|" "DONE" "CANCELLED"))
+        org-log-done 'time))        ; stamps when a task flips to DONE
 
 ;;; Magit - git porcelain
 
