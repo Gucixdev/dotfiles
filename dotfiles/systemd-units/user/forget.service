@@ -6,7 +6,6 @@ Wants=network-online.target
 [Service]
 Type=oneshot
 ExecStart=/home/drbongo/.config/src/maintanance
-User=root
 StandardOutput=null
 StandardError=null
 TimeoutStopSec=30
