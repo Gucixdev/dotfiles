@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Called once from hyprland.conf's single exec-once = ~/.config/autostart/run.
+# Each item is its own background job (not a single foreground chain) so one
+# crashing doesn't take the others down with it - same reasoning as every
+# other backgrounded tool in this repo (smart-edit, nnn's opener).
+
+wl-paste --type text --watch cliphist store &
+disown
+
+wl-paste --type image --watch cliphist store &
+disown
+
+dunst &
+disown
+
+kbnotify &
+disown
+
+/usr/lib/xfce-polkit/xfce-polkit &
+disown
+
+emacs --fg-daemon &
+disown
