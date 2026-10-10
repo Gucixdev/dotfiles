@@ -1,0 +1,5 @@
+# Load /etc/modules-load.d/*.conf (+ a couple of virtio safety nets).
+type = scripted
+command = /etc/dinit.d/scripts/load-modules
+restart = false
+depends-on = early-fs

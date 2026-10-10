@@ -1,0 +1,7 @@
+# system message bus. NB: NO --syslog-only (dbus-daemon exits with it
+# when there's no syslogd, which there isn't in this minimal build) and
+# NO sh wrapper - the pre-start mkdir/uuid is the 'dbus-pre' service.
+type = process
+command = /usr/bin/dbus-daemon --system --nofork --nopidfile
+restart = true
+depends-on = dbus-pre

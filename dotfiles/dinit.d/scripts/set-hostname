@@ -1,0 +1,6 @@
+#!/bin/sh
+h=""
+[ -r /etc/hostname ] && h=$(cat /etc/hostname 2>/dev/null | head -1 | tr -d ' \t\n\r')
+[ -z "$h" ] && h=holyc-gentoo
+hostname "$h" 2>/dev/null || sysctl -w kernel.hostname="$h" 2>/dev/null
+exit 0

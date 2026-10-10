@@ -1,0 +1,11 @@
+#!/bin/sh
+# tiny stand-in for systemd-tmpfiles: runtime dirs + a /tmp sweep.
+mkdir -p /run/lock /run/user /var/run 2>/dev/null
+chmod 0755 /run/user 2>/dev/null
+# sweep /tmp but keep it (skip if someone put a .keep marker)
+if [ ! -e /tmp/.keep ]; then
+	find /tmp -mindepth 1 -xdev ! -name '.keep' -exec rm -rf {} + 2>/dev/null
+fi
+chmod 1777 /tmp /var/tmp /dev/shm 2>/dev/null
+: > /var/run/utmp 2>/dev/null || true
+exit 0

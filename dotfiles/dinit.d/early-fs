@@ -1,0 +1,9 @@
+# Kernel/pseudo filesystems. Gentoo's dracut initramfs already mounts
+# /proc, /sys and /dev before handing off to dinit on this VM, so every
+# mount here is guarded with mountpoint(1) - this service only fills the
+# gaps dracut leaves (/run, /run/lock, /dev/pts, /dev/shm, /dev/mqueue,
+# cgroup2, securityfs, ...). Runs before anything else.
+type = scripted
+command = /etc/dinit.d/scripts/early-fs
+restart = false
+options: starts-on-console

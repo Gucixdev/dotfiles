@@ -1,0 +1,10 @@
+# The main console. Starts dwl through session/tty1-session; when dwl ends (or is not
+# installed) you get a shell. seatd and udev are waited for, not required: a failure
+# there must never take the console away.
+type = process
+command = /sbin/agetty --noclear -n -l /usr/local/bin/tty1-session tty1 linux
+restart = true
+depends-on = early-fs
+waits-for = udev
+waits-for = seatd
+waits-for = gpm

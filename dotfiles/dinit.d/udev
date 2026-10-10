@@ -1,0 +1,8 @@
+# Device manager - only does anything if udevd/systemd-udevd is installed;
+# the script exits 0 cleanly when it is not (devtmpfs alone is fine for
+# this virtio VM).
+type = scripted
+command = /etc/dinit.d/scripts/udev-start
+stop-command = /etc/dinit.d/scripts/udev-stop
+restart = false
+depends-on = early-fs

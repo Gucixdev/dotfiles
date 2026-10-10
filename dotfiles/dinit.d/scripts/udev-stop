@@ -1,0 +1,6 @@
+#!/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin; export PATH
+command -v udevadm >/dev/null 2>&1 && udevadm control --exit 2>/dev/null
+pkill -x udevd 2>/dev/null
+pkill -f systemd-udevd 2>/dev/null
+exit 0

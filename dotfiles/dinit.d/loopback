@@ -1,0 +1,5 @@
+# Bring up lo (dhcpcd / anything using 127.0.0.1 needs it).
+type = scripted
+command = /etc/dinit.d/scripts/loopback
+restart = false
+depends-on = early-fs

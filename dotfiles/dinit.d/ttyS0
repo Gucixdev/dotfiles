@@ -1,0 +1,6 @@
+# Serial console - the primary console for this VM (headless).
+type = process
+command = /sbin/agetty --keep-baud -n -l /bin/bash 115200 ttyS0 linux
+restart = true
+depends-on = early-fs
+options: runs-on-console

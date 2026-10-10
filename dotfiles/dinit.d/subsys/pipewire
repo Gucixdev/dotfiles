@@ -1,0 +1,7 @@
+# system-wide pipewire - PROVISIONAL. pipewire is normally a per-user
+# service; running it system-wide is fine for a headless box but wants
+# a dedicated 'pipewire' user + /etc/pipewire tweaks for a real desktop.
+type = process
+command = /usr/bin/pipewire
+restart = true
+depends-on = dbus

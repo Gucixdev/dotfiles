@@ -1,0 +1,5 @@
+# Restore/refresh the RNG seed if seedrng(8) (util-linux) is present.
+type = scripted
+command = /etc/dinit.d/scripts/seedrng-once
+restart = false
+depends-on = mountall

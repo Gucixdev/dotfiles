@@ -1,0 +1,5 @@
+# VM has kvm-clock, so this is best-effort only.
+type = scripted
+command = /etc/dinit.d/scripts/hwclock-sync
+restart = false
+depends-on = early-fs

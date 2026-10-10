@@ -1,0 +1,9 @@
+#!/bin/sh
+command -v sysctl >/dev/null 2>&1 || exit 0
+if sysctl --system >/dev/null 2>&1; then exit 0; fi
+for d in /run/sysctl.d /etc/sysctl.d /usr/lib/sysctl.d; do
+	[ -d "$d" ] || continue
+	for f in "$d"/*.conf; do [ -r "$f" ] && sysctl -p "$f" >/dev/null 2>&1; done
+done
+[ -r /etc/sysctl.conf ] && sysctl -p /etc/sysctl.conf >/dev/null 2>&1
+exit 0

@@ -1,0 +1,6 @@
+#!/bin/sh
+# dbus needs /run/dbus (tmpfs, gone each boot) + a machine-id before the
+# --system bus starts.
+mkdir -p /run/dbus
+[ -s /var/lib/dbus/machine-id ] || dbus-uuidgen --ensure 2>/dev/null
+exit 0

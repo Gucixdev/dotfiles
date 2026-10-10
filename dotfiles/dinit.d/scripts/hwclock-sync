@@ -1,0 +1,4 @@
+#!/bin/sh
+command -v hwclock >/dev/null 2>&1 || exit 0
+hwclock --hctosys --utc 2>/dev/null || true
+exit 0

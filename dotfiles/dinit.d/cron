@@ -1,0 +1,4 @@
+type = process
+command = /usr/local/bin/cron -n
+restart = true
+depends-on = early-fs

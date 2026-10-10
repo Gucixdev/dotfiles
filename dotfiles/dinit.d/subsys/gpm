@@ -1,0 +1,8 @@
+# mouse on the text console (tty): select with the left button, paste with the middle one - the same
+# thing a fresh Fedora console gives you. gpm ignores the mouse while dwl owns the screen (graphics mode).
+# imps2 = the protocol /dev/input/mice speaks (PS/2 + USB mice, VM tablets).
+type = scripted
+command = /usr/sbin/gpm -m /dev/input/mice -t imps2
+stop-command = /usr/bin/pkill -x gpm
+restart = false
+depends-on = udev

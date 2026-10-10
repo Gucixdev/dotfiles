@@ -1,0 +1,7 @@
+# wifi. iwd has its own DHCP; /etc/iwd/main.conf can flip
+# EnableNetworkConfiguration=true to let it manage addresses.
+type = process
+command = /usr/libexec/iwd
+restart = true
+depends-on = dbus
+depends-on = modules

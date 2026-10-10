@@ -1,0 +1,5 @@
+# Everything else in /etc/fstab (skips the already-mounted root).
+type = scripted
+command = /bin/mount -a
+restart = false
+depends-on = remount-root

@@ -1,0 +1,5 @@
+# Minimal runtime-dir setup + /tmp sweep (no systemd-tmpfiles here).
+type = scripted
+command = /etc/dinit.d/scripts/tmpfiles
+restart = false
+depends-on = mountall

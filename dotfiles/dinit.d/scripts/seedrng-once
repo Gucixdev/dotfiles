@@ -1,0 +1,8 @@
+#!/bin/sh
+if command -v seedrng >/dev/null 2>&1; then
+	seedrng 2>/dev/null || true
+elif [ -f /var/lib/random-seed ]; then
+	cat /var/lib/random-seed > /dev/urandom 2>/dev/null
+	( umask 077; dd if=/dev/urandom of=/var/lib/random-seed bs=512 count=1 2>/dev/null )
+fi
+exit 0

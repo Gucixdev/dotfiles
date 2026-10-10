@@ -1,0 +1,7 @@
+# seat management (libseat backend). wlroots/dwl + pipewire use this to
+# get input/DRM access without logind. Replaces elogind (won't build on
+# musl). Clients join via /run/seatd.sock (group configurable with -g).
+type = process
+command = /usr/bin/seatd -g video
+restart = true
+depends-on = early-fs

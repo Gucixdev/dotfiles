@@ -1,0 +1,21 @@
+#!/bin/sh
+# Start whichever udevd exists, then coldplug: `udevadm trigger` replays every device's "add" event, and
+# udev's 80-drivers.rules turns each MODALIAS into a modprobe. That is what loads the GPU driver
+# (virtio_gpu / i915 / amdgpu / nouveau), input and usb drivers - without it /dev/dri never appears and dwl
+# cannot start. tty1 `waits-for` this service, so the settle below makes dwl start AFTER the drivers are in.
+# dinit hands scripts a minimal PATH (no /usr/bin), so set it: udevadm lives in /usr/bin.
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+export PATH
+for u in /sbin/udevd /usr/lib/systemd/systemd-udevd /lib/systemd/systemd-udevd \
+         /usr/lib/udev/udevd /bin/udevd; do
+	if [ -x "$u" ]; then
+		"$u" --daemon 2>/dev/null
+		if command -v udevadm >/dev/null 2>&1; then
+			udevadm trigger --type=subsystems --action=add 2>/dev/null
+			udevadm trigger --type=devices --action=add 2>/dev/null
+			udevadm settle --timeout=20 2>/dev/null
+		fi
+		exit 0
+	fi
+done
+exit 0

@@ -1,0 +1,5 @@
+# top-level boot target: dinit starts this as its initial service; every
+# boot service is a member of boot.d (waits-for), so "boot" reaching
+# STARTED means the base system is up.
+type = internal
+waits-for.d = boot.d
