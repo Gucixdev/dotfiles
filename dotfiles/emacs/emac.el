@@ -54,6 +54,13 @@
 
 ;;; Appearance - black background + tsoding's own theme/font
 
+;; Third-party packages from MELPA (gruber-darker among them) often lack a lexical-binding cookie; Emacs 31 warns about it on
+;; every load and pops *Warnings* up as a second window at startup. Silence exactly that warning type (not file warnings in
+;; general): its type is (files missing-lexbind-cookie FILE), matched by prefix.
+(require 'warnings)
+(add-to-list 'warning-suppress-types '(files missing-lexbind-cookie))
+(add-to-list 'warning-suppress-log-types '(files missing-lexbind-cookie))
+
 (use-package gruber-darker-theme
   :config
   (load-theme 'gruber-darker t))
@@ -151,3 +158,12 @@
 (use-package which-key
   :config
   (which-key-mode 1))
+
+;;; Dev modules - ~/.config/emacs/lisp/*.el, each independent: delete its name from the list to drop it.
+;;; A module that fails to load is reported in *Messages* and skipped; it can't take startup down with it.
+
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(dolist (module '(dev-server dev-nav dev-shell dev-lang dev-debug dev-godot dev-merge dev-templates claude-api))
+  (condition-case err
+      (require module)
+    (error (message "dev module %s failed to load: %S" module err))))

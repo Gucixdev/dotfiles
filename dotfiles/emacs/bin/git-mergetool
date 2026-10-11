@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# git mergetool backend: 3-way ediff in Emacs, with the user's config (evil, theme, merge helpers).
+# Usage: git-mergetool LOCAL REMOTE BASE MERGED     Exit 0 only when MERGED has no conflict markers left.
+set -eu
+[ $# -eq 4 ] || { echo "usage: $0 LOCAL REMOTE BASE MERGED" >&2; exit 2; }
+MERGE_LOCAL=$1 MERGE_REMOTE=$2 MERGE_BASE=$3 MERGE_MERGED=$4 exec emacs --eval '(my/git-mergetool)'
