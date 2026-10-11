@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Glowne menu (Super+W): dmenu_menu z /data/dev/setup/base/dmenu (Aplikacje, Gry, Skrypty, Kalkulator, Schowek).
+# rofi usuniety (pakiet + rofi-calc) - dmenu_menu ma wlasny kalkulator, nic go nie potrzebowalo.
+exec "$HOME/.local/bin/dmenu_menu" "$@"

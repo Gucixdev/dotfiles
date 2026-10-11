@@ -1,0 +1,109 @@
+#!/usr/bin/env bash
+# Generuje ~/.local/share/applications/steamgame-<appid>.desktop dla każdej
+# zainstalowanej gry Steam, żeby wpadały do menu (sekcja "Gry" w dmenu_menu = kategoria Game).
+# Sprząta wpisy po grach które już nie są zainstalowane. Idempotentny.
+set -euo pipefail
+
+APPDIR="${XDG_DATA_HOME:-$HOME/.local/share}/applications"
+PREFIX="steamgame-"
+
+# --- znajdź instalację Steam -------------------------------------------------
+STEAM=""
+for c in \
+    "$HOME/.var/app/com.valvesoftware.Steam/.local/share/Steam" \
+    "$HOME/.local/share/Steam" \
+    "$HOME/.steam/steam" \
+    "$HOME/snap/steam/common/.local/share/Steam"; do
+    if [ -d "$c/steamapps" ]; then STEAM="$c"; break; fi
+done
+[ -n "$STEAM" ] || { echo "nie znalazłem instalacji Steam" >&2; exit 1; }
+
+# launcher: flatpak jeśli zainstalowany, inaczej natywny
+if flatpak info com.valvesoftware.Steam >/dev/null 2>&1; then
+    LAUNCH="flatpak run com.valvesoftware.Steam"
+else
+    LAUNCH="steam"
+fi
+
+# --- biblioteki (root + libraryfolders.vdf) --------------------------------
+declare -A seen_lib=()
+libs=()
+add_lib() {
+    local r; r=$(readlink -f "$1") || return 0
+    [ -d "$r/steamapps" ] || return 0
+    [ -z "${seen_lib[$r]:-}" ] || return 0
+    seen_lib[$r]=1
+    libs+=("$r")
+}
+add_lib "$STEAM"
+lf="$STEAM/config/libraryfolders.vdf"
+[ -f "$lf" ] || lf="$STEAM/steamapps/libraryfolders.vdf"
+if [ -f "$lf" ]; then
+    while IFS= read -r p; do add_lib "$p"; done \
+        < <(grep -oP '"path"\s*"\K[^"]+' "$lf")
+fi
+
+# nie-gry: runtime'y, Proton, redisty
+is_tool() {
+    case "$1" in
+        "Steam Linux Runtime"*|"Proton"*|"Steamworks Common Redistributables"| \
+        "SteamVR"|"Steam Controller Configs"*) return 0 ;;
+        *) return 1 ;;
+    esac
+}
+
+mkdir -p "$APPDIR"
+declare -A keep=()
+made=0
+
+for lib in "${libs[@]}"; do
+    for acf in "$lib"/steamapps/appmanifest_*.acf; do
+        [ -e "$acf" ] || continue
+        appid=$(grep -oP '"appid"\s*"\K[0-9]+' "$acf" | head -1)
+        name=$(grep -oP '"name"\s*"\K[^"]+' "$acf" | head -1)
+        flags=$(grep -oP '"StateFlags"\s*"\K[0-9]+' "$acf" | head -1)
+        [ -n "$appid" ] && [ -n "$name" ] || continue
+        # bit 0x4 = fully installed
+        [ $(( ${flags:-0} & 4 )) -ne 0 ] || continue
+        is_tool "$name" && continue
+
+        keep[$appid]=1
+        icon="steam"
+        for i in \
+            "$STEAM/appcache/librarycache/$appid/logo.png" \
+            "$STEAM/appcache/librarycache/${appid}_icon.jpg" \
+            "$STEAM/appcache/librarycache/$appid/icon.jpg"; do
+            [ -f "$i" ] && { icon="$i"; break; }
+        done
+
+        out="$APPDIR/${PREFIX}${appid}.desktop"
+        cat > "$out" <<EOF
+[Desktop Entry]
+Type=Application
+Name=$name
+Comment=Steam · AppID $appid
+Exec=$LAUNCH steam://rungameid/$appid
+Icon=$icon
+Terminal=false
+Categories=Game;
+Keywords=Steam;Gra;
+StartupNotify=true
+StartupWMClass=steam_app_$appid
+X-Steam-AppID=$appid
+EOF
+        made=$((made + 1))
+    done
+done
+
+# --- sprzątanie osieroconych ----------------------------------------------
+removed=0
+for f in "$APPDIR/$PREFIX"*.desktop; do
+    [ -e "$f" ] || continue
+    id=$(basename "$f" .desktop); id=${id#$PREFIX}
+    if [ -z "${keep[$id]:-}" ]; then rm -f "$f"; removed=$((removed + 1)); fi
+done
+
+command -v update-desktop-database >/dev/null 2>&1 && \
+    update-desktop-database "$APPDIR" 2>/dev/null || true
+
+echo "steam-games: $made wpisów, usunięto $removed  (launcher: $LAUNCH)"

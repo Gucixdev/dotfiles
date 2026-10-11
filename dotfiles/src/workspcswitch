@@ -1,0 +1,95 @@
+#!/usr/bin/env bash
+# Workspace switcher - dynamiczny, nie hardcoduje nazw monitorow
+
+MAX=5
+
+_mons() {
+    hyprctl monitors -j | python3 -c "
+import json,sys
+mons=sorted(json.load(sys.stdin),key=lambda m:m['x'])
+for m in mons: print(m['name'])
+"
+}
+
+_active_mon() {
+    hyprctl monitors -j | python3 -c "
+import json,sys
+for m in json.load(sys.stdin):
+    if m.get('focused'): print(m['name']); break
+"
+}
+
+_mon_ws() {
+    hyprctl monitors -j | python3 -c "
+import json,sys
+for m in json.load(sys.stdin):
+    if m['name']=='$1': print(m['activeWorkspace']['id']); break
+" 2>/dev/null || echo 1
+}
+
+_ws_has_windows() {
+    hyprctl workspaces -j | python3 -c "
+import json,sys
+ws=[w for w in json.load(sys.stdin) if w['id']==$1]
+print('1' if ws and ws[0]['windows']>0 else '0')
+" 2>/dev/null || echo 0
+}
+
+mapfile -t MONS < <(_mons)
+MON_COUNT=${#MONS[@]}
+[ "$MON_COUNT" -eq 0 ] && exit 1
+
+MON1="${MONS[0]}"
+MON2="${MONS[1]:-}"
+
+case "$1" in
+    next|prev)
+        vd=$(_mon_ws "$MON1")
+        if [ "$1" = "next" ]; then
+            vd=$(( vd + 1 )); [ "$vd" -gt "$MAX" ] && vd=1
+        else
+            vd=$(( vd - 1 )); [ "$vd" -lt 1 ] && vd="$MAX"
+        fi
+
+        hyprctl dispatch focusmonitor "$MON1"
+        hyprctl dispatch workspace "$vd"
+
+        if [ -n "$MON2" ]; then
+            ws2=$(( vd + MAX ))
+            hyprctl dispatch focusmonitor "$MON2"
+            hyprctl dispatch workspace "$ws2"
+            sleep 0.05
+            hyprctl dispatch focusmonitor "$MON1"
+        fi
+        ;;
+
+    move_next|move_prev)
+        ws=$(hyprctl activewindow -j | python3 -c "
+import json,sys
+try: print(json.load(sys.stdin)['workspace']['id'])
+except: print(1)
+" 2>/dev/null || echo 1)
+
+        if [ "$ws" -le "$MAX" ]; then lo=1; hi=$MAX
+        else lo=$(( MAX+1 )); hi=$(( MAX*2 )); fi
+
+        if [ "$1" = "move_next" ]; then
+            nws=$(( ws+1 )); [ "$nws" -gt "$hi" ] && nws=$lo
+        else
+            nws=$(( ws-1 )); [ "$nws" -lt "$lo" ] && nws=$hi
+        fi
+        hyprctl dispatch movetoworkspace "$nws"
+        ;;
+
+    [0-9]*)
+        hyprctl dispatch focusmonitor "$MON1"
+        hyprctl dispatch workspace "$1"
+        if [ -n "$MON2" ]; then
+            ws2=$(( $1 + MAX ))
+            hyprctl dispatch focusmonitor "$MON2"
+            hyprctl dispatch workspace "$ws2"
+            sleep 0.05
+            hyprctl dispatch focusmonitor "$MON1"
+        fi
+        ;;
+esac
