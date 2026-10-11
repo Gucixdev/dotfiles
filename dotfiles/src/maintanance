@@ -255,7 +255,10 @@ task_clean_browsers() {
     due clean_browsers "$FREQ_CLEAN_BROWSERS" || return 0
     log "=== CLEAN BROWSERS ==="
     local profile
-    for profile in "/home/$NOTIFY_USER/.mozilla/firefox/"*.default*/; do
+    for profile in \
+        "/home/$NOTIFY_USER/.mozilla/firefox/"*.default*/ \
+        "/home/$NOTIFY_USER/.config/mozilla/firefox/"*.default*/ \
+        "/home/$NOTIFY_USER/.var/app/org.mozilla.firefox/.mozilla/firefox/"*.default*/; do
         [[ -d "$profile" ]] || continue
         find "$profile/cache2"       -type f -atime +7 -print0 2>/dev/null | xargs -0 --no-run-if-empty rm -f >> "$LOG_FILE" 2>&1
         find "$profile/crashreports" -type f -mtime +7 -print0 2>/dev/null | xargs -0 --no-run-if-empty rm -f >> "$LOG_FILE" 2>&1

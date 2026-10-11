@@ -1,0 +1,5 @@
+/* dotfiles/firefox/chrome/userContent.css — Gucixdev
+   Styles page content (e.g. about:newtab, PDF viewer, other internal pages) — never
+   regular web pages, that's not what this file is for. Needs
+   toolkit.legacyUserProfileCustomizations.stylesheets (see ../user.js). Empty until
+   there's a real tweak worth keeping here. */

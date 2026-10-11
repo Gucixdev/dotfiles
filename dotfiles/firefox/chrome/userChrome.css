@@ -1,0 +1,4 @@
+/* dotfiles/firefox/chrome/userChrome.css — Gucixdev
+   Styles the browser UI itself (tabs, toolbar, urlbar). Needs
+   toolkit.legacyUserProfileCustomizations.stylesheets (see ../user.js). Empty until
+   there's a real tweak worth keeping here. */

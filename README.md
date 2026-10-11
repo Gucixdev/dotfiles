@@ -20,6 +20,8 @@ Everything lives under `dotfiles/` and is applied by symlink, there is no instal
 | `dotfiles/systemd-units/` | system and user units | `~/.config/systemd-units` |
 | `dotfiles/dinit.d/` | a dinit service tree (see below) | `/etc/dinit.d` on a dinit system |
 | `dotfiles/.gitconfig` | git settings, identity is included from `~/.gitconfig.local` | `~/.gitconfig` |
+| `dotfiles/firefox/` | `user.js`, `chrome/` (userChrome/userContent), extensions list, bookmark export (see below) | symlinked into the profile |
+| `dotfiles/flatpak/` | installed app-id list + any permission overrides (see below) | applied via `flatpak/install` |
 
 Example:
 
@@ -56,6 +58,30 @@ base service is a member of `boot.d`, so `boot` reaching STARTED means the syste
 up; `subsys/` holds equivalents for systemd units that had no dinit match. This
 machine boots with systemd, so the tree is written for a dinit based system and is
 not exercised here. `systemd-units/` keeps the unit files used on this machine.
+
+## Firefox
+
+`prefs.js` itself is not tracked — it's almost entirely runtime/session state Firefox
+regenerates on its own (telemetry timestamps, session-restore bookkeeping, per-install
+random ids), not deliberate choices. What's actually dotfiles-worthy instead:
+
+- `firefox/user.js` — about:config overrides, read fresh on every launch. Symlinked
+  straight into the profile (`~/.config/mozilla/firefox/<profile>/user.js` on this
+  machine; native Firefox uses `~/.mozilla/firefox/<profile>/` instead).
+- `firefox/chrome/userChrome.css` / `userContent.css` — UI and internal-page styling,
+  symlinked as the profile's `chrome/` dir. Needs the pref `user.js` already sets.
+- `firefox/extensions.txt` — a plain list of AMO slugs to reinstall by hand; there's
+  no CLI install path for add-ons, so nothing here applies it automatically.
+- `firefox/export-bookmarks` — decodes Firefox's own newest `.jsonlz4` bookmark
+  backup (a tiny from-scratch LZ4 block decoder, no `lz4` pip dependency for one file
+  format) into a diffable `firefox/bookmarks.json`. Run by hand, not on a timer.
+
+## Flatpak
+
+`flatpak/apps.txt` is the installed app-id list; `flatpak/overrides/` holds any
+per-app permission overrides that exist (empty right now). `flatpak/export`
+refreshes both from the live system; `flatpak/install` re-installs everything listed
+and re-applies the tracked overrides — meant for a fresh machine.
 
 ## Secrets and identity
 

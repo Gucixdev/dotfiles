@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# dotfiles/flatpak/install — Gucixdev
+# Installs every app listed in apps.txt (adding the flathub remote first if it's
+# missing) and re-applies any tracked per-app permission overrides. Run by hand on a
+# new machine, not automatically.
+set -euo pipefail
+cd "$(dirname "$(readlink -f "$0")")"
+
+flatpak remote-list | grep -q '^flathub' || \
+    flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+mapfile -t apps < apps.txt
+echo "Installing ${#apps[@]} app(s)..."
+flatpak install -y --or-update flathub "${apps[@]}"
+
+if [[ -d overrides ]]; then
+    mkdir -p "$HOME/.local/share/flatpak/overrides"
+    shopt -s nullglob
+    for f in overrides/*; do
+        [[ -f "$f" && "$(basename "$f")" != ".gitkeep" ]] && cp "$f" "$HOME/.local/share/flatpak/overrides/"
+    done
+fi

@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# dotfiles/flatpak/export — Gucixdev
+# Snapshots the current flatpak state into this dir: the installed app-id list, and
+# any per-app permission overrides that actually exist. Run by hand after installing
+# or re-configuring something worth keeping.
+set -euo pipefail
+cd "$(dirname "$(readlink -f "$0")")"
+
+flatpak list --app --columns=application | sort > apps.txt
+echo "apps.txt: $(wc -l < apps.txt) apps"
+
+rm -rf overrides && mkdir -p overrides
+shopt -s nullglob
+for f in "$HOME/.local/share/flatpak/overrides/"*; do
+    [[ -f "$f" ]] && cp "$f" overrides/
+done
+n=$(find overrides -type f | wc -l)
+echo "overrides: $n file(s)"
+[[ "$n" -eq 0 ]] && : > overrides/.gitkeep

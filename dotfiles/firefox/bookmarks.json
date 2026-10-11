@@ -1,0 +1,345 @@
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "dateAdded": 1779548569810000,
+              "guid": "pYDvsmIX3LBl",
+              "iconUri": "fake-favicon-uri:https://support.mozilla.org/products/firefox",
+              "id": 8,
+              "index": 0,
+              "lastModified": 1779548569810000,
+              "title": "Get Help",
+              "type": "text/x-moz-place",
+              "typeCode": 1,
+              "uri": "https://support.mozilla.org/products/firefox"
+            },
+            {
+              "dateAdded": 1779548569810000,
+              "guid": "Qb7RFIqhoWGK",
+              "iconUri": "fake-favicon-uri:https://support.mozilla.org/kb/customize-firefox-controls-buttons-and-toolbars?utm_source=firefox-browser&utm_medium=default-bookmarks&utm_campaign=customize",
+              "id": 9,
+              "index": 1,
+              "lastModified": 1779548569810000,
+              "title": "Customize Firefox",
+              "type": "text/x-moz-place",
+              "typeCode": 1,
+              "uri": "https://support.mozilla.org/kb/customize-firefox-controls-buttons-and-toolbars?utm_source=firefox-browser&utm_medium=default-bookmarks&utm_campaign=customize"
+            },
+            {
+              "dateAdded": 1779548569810000,
+              "guid": "8v-pmFQ7RLZZ",
+              "iconUri": "fake-favicon-uri:https://www.mozilla.org/contribute/",
+              "id": 10,
+              "index": 2,
+              "lastModified": 1779548569810000,
+              "title": "Get Involved",
+              "type": "text/x-moz-place",
+              "typeCode": 1,
+              "uri": "https://www.mozilla.org/contribute/"
+            },
+            {
+              "dateAdded": 1779548569810000,
+              "guid": "xUkWYU-yJdA6",
+              "iconUri": "fake-favicon-uri:https://www.mozilla.org/about/",
+              "id": 11,
+              "index": 3,
+              "lastModified": 1779548569810000,
+              "title": "About Us",
+              "type": "text/x-moz-place",
+              "typeCode": 1,
+              "uri": "https://www.mozilla.org/about/"
+            }
+          ],
+          "dateAdded": 1779548569810000,
+          "guid": "BBzugGQlx5IN",
+          "id": 7,
+          "index": 0,
+          "lastModified": 1779548569810000,
+          "title": "Mozilla Firefox",
+          "type": "text/x-moz-place-container",
+          "typeCode": 2
+        }
+      ],
+      "dateAdded": 1779548569658000,
+      "guid": "menu________",
+      "id": 2,
+      "index": 0,
+      "lastModified": 1779548569810000,
+      "root": "bookmarksMenuFolder",
+      "title": "menu",
+      "type": "text/x-moz-place-container",
+      "typeCode": 2
+    },
+    {
+      "children": [
+        {
+          "dateAdded": 1779559931627000,
+          "guid": "fIEAGwPgjxhq",
+          "iconUri": "https://www.youtube.com/s/desktop/5af4fee3/img/favicon_144x144.png",
+          "id": 13,
+          "index": 0,
+          "lastModified": 1779559931627000,
+          "title": "",
+          "type": "text/x-moz-place",
+          "typeCode": 1,
+          "uri": "https://www.youtube.com/"
+        },
+        {
+          "dateAdded": 1779559923470000,
+          "guid": "RT2wc0BCqw05",
+          "iconUri": "https://dl.flathub.org/assets/_next/public/favicon.svg",
+          "id": 12,
+          "index": 1,
+          "lastModified": 1779561423933000,
+          "title": "",
+          "type": "text/x-moz-place",
+          "typeCode": 1,
+          "uri": "https://flathub.org/en"
+        },
+        {
+          "dateAdded": 1779561365978000,
+          "guid": "X9M1rAyJVpZ8",
+          "id": 15,
+          "index": 2,
+          "lastModified": 1779561365978000,
+          "title": "",
+          "type": "text/x-moz-place",
+          "typeCode": 1,
+          "uri": "https://www.protondb.com/"
+        },
+        {
+          "dateAdded": 1779561379500000,
+          "guid": "FYtoCz0M4fnk",
+          "iconUri": "https://steamdb.info/static/logos/vector_prefers_schema.svg",
+          "id": 16,
+          "index": 3,
+          "lastModified": 1779561379500000,
+          "title": "",
+          "type": "text/x-moz-place",
+          "typeCode": 1,
+          "uri": "https://steamdb.info/"
+        },
+        {
+          "children": [
+            {
+              "dateAdded": 1779562817102000,
+              "guid": "FpDVwR-9BN61",
+              "iconUri": "https://ae01.alicdn.com/images/eng/wholesale/icon/aliexpress.ico",
+              "id": 24,
+              "index": 0,
+              "lastModified": 1779562829787000,
+              "title": "",
+              "type": "text/x-moz-place",
+              "typeCode": 1,
+              "uri": "https://www.aliexpress.com/?src=google&albch=fbrnd&acnt=450-156-4625&isdl=y&aff_short_key=UneMJZVf&albcp=2042458462&albag=71343543599&slnk=&trgt=kwd-14802285088&plac=&crea=619144571406&netw=g&device=c&mtctp=e&memo1=&albbt=Google_7_fbrnd&aff_platform=google&albagn=888888&isSmbActive=false&isSmbAutoCall=false&needSmbHouyi=false&gad_source=1&gad_campaignid=2042458462&gclid=Cj0KCQjwoMXQBhDcARIsAH-eEtu1xwbrqBOQSNPAeIDPpkj38sBdEtojVFrX_RPfHmQpT41XqZnzVXkaAidYEALw_wcB"
+            },
+            {
+              "dateAdded": 1779562813807000,
+              "guid": "cL5Q-fYdjPEb",
+              "id": 23,
+              "index": 1,
+              "lastModified": 1779562831067000,
+              "title": "",
+              "type": "text/x-moz-place",
+              "typeCode": 1,
+              "uri": "https://www.amazon.co.uk/"
+            },
+            {
+              "dateAdded": 1779562810723000,
+              "guid": "n8JqYxMdacuk",
+              "iconUri": "https://s.alicdn.com/favicon.ico",
+              "id": 22,
+              "index": 2,
+              "lastModified": 1779562832211000,
+              "title": "",
+              "type": "text/x-moz-place",
+              "typeCode": 1,
+              "uri": "https://www.alibaba.com/?src=sem_ggl&field=UG&from=sem_ggl&cmpgn=9922923043&adgrp=97780318062&fditm=&tgt=kwd-14739453&locintrst=&locphyscl=9046153&mtchtyp=e&ntwrk=g&device=c&dvcmdl=&creative=432272606776&plcmnt=&plcmntcat=&aceid=&position=&gad_source=1&gad_campaignid=9922923043&gclid=Cj0KCQjwoMXQBhDcARIsAH-eEtuEzxt6G_LNHoDHVSm-A9AL_4KLNybg-kGOkTlEjCVul6lRvKa3kqMaAhwnEALw_wcB"
+            },
+            {
+              "dateAdded": 1779562807568000,
+              "guid": "TDdVCgcu4tI4",
+              "iconUri": "https://www.ebay.com/favicon.ico",
+              "id": 21,
+              "index": 3,
+              "lastModified": 1779562835091000,
+              "title": "",
+              "type": "text/x-moz-place",
+              "typeCode": 1,
+              "uri": "https://www.ebay.co.uk/"
+            }
+          ],
+          "dateAdded": 1779562827703000,
+          "guid": "BOFFoJc7mbKq",
+          "id": 25,
+          "index": 4,
+          "lastModified": 1779562835091000,
+          "title": "shop",
+          "type": "text/x-moz-place-container",
+          "typeCode": 2
+        },
+        {
+          "children": [
+            {
+              "dateAdded": 1779561437110000,
+              "guid": "N3RTciczteYH",
+              "iconUri": "https://github.githubassets.com/favicons/favicon.svg",
+              "id": 17,
+              "index": 0,
+              "lastModified": 1779562844643000,
+              "title": "",
+              "type": "text/x-moz-place",
+              "typeCode": 1,
+              "uri": "https://github.com/"
+            },
+            {
+              "dateAdded": 1779561444518000,
+              "guid": "378GcqWpq9gI",
+              "iconUri": "https://about.gitlab.com/images/ico/favicon-192x192.png",
+              "id": 18,
+              "index": 1,
+              "lastModified": 1779562849819000,
+              "title": "",
+              "type": "text/x-moz-place",
+              "typeCode": 1,
+              "uri": "https://about.gitlab.com/assessments/devops-modernization-assessment/?utm_medium=cpc&utm_source=google&utm_campaign=eg_emea_dmp_x_x_en_gitlab_search_br_core_emea_exact&utm_content=modernization-devops_x_x&_bt=799134064298&_bk=gitlab&_bm=e&_bn=g&_bg=75294586319&gad_source=1&gad_campaignid=2062237857&gclid=Cj0KCQjwoMXQBhDcARIsAH-eEtsE9-QhoXeu45mppNuns1WfEHyzOliTAiEOeaAbR_eMaN2U7h0cdy4aAnpyEALw_wcB"
+            },
+            {
+              "dateAdded": 1779561451485000,
+              "guid": "-bBc7XY29Ax9",
+              "id": 19,
+              "index": 2,
+              "lastModified": 1779562856603000,
+              "title": "",
+              "type": "text/x-moz-place",
+              "typeCode": 1,
+              "uri": "https://www.cloudflare.com/"
+            }
+          ],
+          "dateAdded": 1779562841927000,
+          "guid": "j0l0onRT6P9V",
+          "id": 26,
+          "index": 5,
+          "lastModified": 1779562856603000,
+          "title": "dev",
+          "type": "text/x-moz-place-container",
+          "typeCode": 2
+        },
+        {
+          "children": [
+            {
+              "dateAdded": 1779562881625000,
+              "guid": "U495KeQSZEMC",
+              "iconUri": "https://www.wikipedia.org/static/favicon/wikipedia.ico",
+              "id": 28,
+              "index": 0,
+              "lastModified": 1779566424295000,
+              "title": "",
+              "type": "text/x-moz-place",
+              "typeCode": 1,
+              "uri": "https://www.wikipedia.org/"
+            },
+            {
+              "dateAdded": 1779562878495000,
+              "guid": "d9beea2LGrAF",
+              "iconUri": "https://wikileaks.org/IMG/favicon.ico",
+              "id": 27,
+              "index": 1,
+              "lastModified": 1779566438990000,
+              "title": "",
+              "type": "text/x-moz-place",
+              "typeCode": 1,
+              "uri": "https://wikileaks.org/"
+            },
+            {
+              "dateAdded": 1779559953957000,
+              "guid": "ftdnjLiWw1Mp",
+              "iconUri": "https://archive.org/offshoot_assets/favicon.ico",
+              "id": 14,
+              "index": 2,
+              "lastModified": 1779566464697000,
+              "title": "",
+              "type": "text/x-moz-place",
+              "typeCode": 1,
+              "uri": "https://archive.org/"
+            }
+          ],
+          "dateAdded": 1779566421377000,
+          "guid": "1PJTS7L7UcKF",
+          "id": 30,
+          "index": 6,
+          "lastModified": 1779566464697000,
+          "title": "deep",
+          "type": "text/x-moz-place-container",
+          "typeCode": 2
+        },
+        {
+          "children": [
+            {
+              "dateAdded": 1779561465089000,
+              "guid": "x_nk50wvT8pM",
+              "id": 20,
+              "index": 0,
+              "lastModified": 1779566456656000,
+              "title": "",
+              "type": "text/x-moz-place",
+              "typeCode": 1,
+              "uri": "https://huggingface.co/"
+            }
+          ],
+          "dateAdded": 1779566453646000,
+          "guid": "Guo3BeMxTi0t",
+          "id": 31,
+          "index": 7,
+          "lastModified": 1779566456656000,
+          "title": "AI",
+          "type": "text/x-moz-place-container",
+          "typeCode": 2
+        }
+      ],
+      "dateAdded": 1779548569658000,
+      "guid": "toolbar_____",
+      "id": 3,
+      "index": 1,
+      "lastModified": 1779566464697000,
+      "root": "toolbarFolder",
+      "title": "toolbar",
+      "type": "text/x-moz-place-container",
+      "typeCode": 2
+    },
+    {
+      "dateAdded": 1779548569658000,
+      "guid": "unfiled_____",
+      "id": 5,
+      "index": 3,
+      "lastModified": 1779548569782000,
+      "root": "unfiledBookmarksFolder",
+      "title": "unfiled",
+      "type": "text/x-moz-place-container",
+      "typeCode": 2
+    },
+    {
+      "dateAdded": 1779548569673000,
+      "guid": "mobile______",
+      "id": 6,
+      "index": 4,
+      "lastModified": 1779548569782000,
+      "root": "mobileFolder",
+      "title": "mobile",
+      "type": "text/x-moz-place-container",
+      "typeCode": 2
+    }
+  ],
+  "dateAdded": 1779548569658000,
+  "guid": "root________",
+  "id": 1,
+  "index": 0,
+  "lastModified": 1779566464697000,
+  "root": "placesRoot",
+  "title": "",
+  "type": "text/x-moz-place-container",
+  "typeCode": 2
+}

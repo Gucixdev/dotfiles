@@ -1,0 +1,14 @@
+com.google.Chrome
+com.jgraph.drawio.desktop
+com.ultimaker.cura
+com.valvesoftware.Steam
+net.davidotek.pupgui2
+net.shadps4.shadPS4
+org.ghidra_sre.Ghidra
+org.gimp.GIMP
+org.inkscape.Inkscape
+org.kde.krita
+org.mozilla.firefox
+org.onlyoffice.desktopeditors
+org.openscad.OpenSCAD
+re.rizin.cutter

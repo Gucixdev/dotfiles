@@ -1,0 +1,7 @@
+# dotfiles/firefox/extensions.txt — Gucixdev
+#
+# Add-ons have no CLI install path (no `firefox --install-addon`), so this is a plain
+# list to reinstall from by hand via about:addons, not something a script applies.
+# One AMO slug per line (the part of the addons.mozilla.org/.../addon/<slug>/ URL),
+# '#' comments allowed. Currently empty — nothing beyond Firefox's own built-ins is
+# installed on this machine yet.
