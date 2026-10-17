@@ -25,7 +25,7 @@ BUSY_PROCS=(
     "gamescope" "steam_app_" "wine" "proton" "lutris" "chrome" "chromium"
     "blender" "kdenlive" "davinci" "obs" "resolve" "steam" "firefox" "krita" "gimp"
 )
-NOTIFY_USER="drbongo"
+NOTIFY_USER="${SUDO_USER:-$(stat -c %U "$(readlink -f "$0")")}"   # who started it (the sudo re-exec above sets SUDO_USER), else the script's owner
 LOG_FILE="/var/log/maintanance.log"
 STATE_DIR="/var/lib/maintanance"
 LOG_MAX_BYTES=$(( 5 * MB ))

@@ -91,7 +91,9 @@ from `~/.gitconfig.local`, which `.gitconfig` includes.
 
 ## Notes
 
-- Qt and GTK files contain absolute paths (`/home/<user>/...`) because those
-  toolkits do not expand `$HOME`; edit them for another user name.
+- No user name in the tree: qt5ct/qt6ct expand `~` in `color_scheme_path`
+  (saving from their GUI writes the full path back, so change it to `~` again
+  before committing), and GTK's `gtk-3.0/bookmarks`, which takes only absolute
+  `file://` URIs, is not tracked.
 - Daily driver: CachyOS (Arch based) with Hyprland.
 - MIT, see `LICENSE`.

@@ -18,3 +18,6 @@ dotfiles/emacs/.mc-lists.el
 
 # upstream forks live elsewhere, not in this repo
 forked/
+
+# GTK sidebar bookmarks: user state, absolute file:// URIs only (no ~)
+dotfiles/theme/gtk-3.0/bookmarks
