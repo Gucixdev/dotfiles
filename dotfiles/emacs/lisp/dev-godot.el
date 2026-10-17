@@ -5,7 +5,8 @@
 ;;              the error on its line (C-c d lists, ]d [d jump). Works with the editor closed. It reports the first parse error
 ;;              of the file, like the engine does - the same thing you would see in the editor's output.
 ;; External     Godot -> Emacs: Editor Settings > Text Editor > External is `emacsclient ... +{line}:{col} {file}';
-;;              dev-server.el makes this Emacs the server, so a click in Godot opens the script as a frame here.
+;;              dev-server.el makes this Emacs the server and keeps one window, so a click in Godot opens the script as a
+;;              new tab in the Emacs frame already open (a frame is made only when none is).
 ;; Project      a directory with project.godot is a project for project.el, compile and tags.
 ;;
 ;;   C-c G r  run the project        C-c G s  run the scene of this buffer       C-c G e  open the project in the editor

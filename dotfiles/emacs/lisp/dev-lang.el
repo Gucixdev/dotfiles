@@ -1,13 +1,29 @@
-;;; dev-lang.el --- Rust (cargo), Python (pip/venv), Nix  -*- lexical-binding: t; -*-
+;;; dev-lang.el --- the languages: modes and the project tooling around them  -*- lexical-binding: t; -*-
 ;;
-;; No language servers (see dev-nav.el for how navigation, diagnostics and formatting work without one). Here: modes and the
-;; project tooling around them.
+;; No language servers (see dev-nav.el for how navigation, diagnostics and formatting work without one). Build, check and
+;; test go through compile (dev-compile.el picks the command). Built in unless noted:
 ;;
-;; Rust    rust-mode + cargo-minor-mode:  C-c C-c C-b build   C-c C-c C-r run   C-c C-c C-t test   C-c C-c C-l clippy
-;;         (rustfmt and cargo are installed; format with C-c f)
-;; Python  pyvenv picks up a project's .venv automatically (so `python', pip and compile commands see its packages);
-;;         pip-requirements for requirements*.txt;  M-x my/pip-install-requirements
-;; Nix     nix-mode for *.nix
+;; C / C++     cc-mode, K&R braces, one tab per level (shown 4 wide) - the shape of the file templates
+;; Rust        rust-mode + cargo-minor-mode (packages):  C-c C-c C-b build   C-c C-c C-r run   C-c C-c C-t test   C-c C-c C-l clippy
+;; Go          go-mode (package); gofmt with C-c f
+;; Bash        sh-mode, see dev-shell.el
+;; Perl        cperl-mode for every Perl file
+;; Python      python-mode; pyvenv (package) picks up a project's .venv by itself, so `python', pip and compile see its
+;;             packages; pip-requirements for requirements*.txt;  M-x my/pip-install-requirements
+;; GDScript    gdscript-mode (package), see dev-godot.el
+;; Ruby/Rails  ruby-mode for .rb Rakefile Gemfile .rake .gemspec; web-mode (package) for .erb views. From a Rails app,
+;;             C-c r offers bin/rails test
+;; TypeScript  typescript-mode (package) for .ts; web-mode for .tsx / .jsx
+;; Nix         nix-mode (package) for *.nix
+
+;;; C / C++
+
+(setq c-default-style '((java-mode . "java") (awk-mode . "awk") (other . "linux")))
+(add-hook 'c-mode-common-hook
+          (lambda () (setq-local indent-tabs-mode t
+                                 c-basic-offset tab-width)))
+
+;;; Rust
 
 (use-package rust-mode
   :mode "\\.rs\\'"
@@ -15,6 +31,18 @@
 
 (use-package cargo
   :hook (rust-mode . cargo-minor-mode))
+
+;;; Go
+
+(use-package go-mode
+  :mode "\\.go\\'")                          ; tabs and gofmt's layout come with the mode; format with C-c f
+
+;;; Perl
+
+(add-to-list 'major-mode-remap-alist '(perl-mode . cperl-mode))
+(setq cperl-indent-level 4)
+
+;;; Python
 
 (use-package pyvenv
   :commands (pyvenv-activate pyvenv-deactivate pyvenv-workon))
@@ -45,6 +73,23 @@
          (venv (or (let ((default-directory root)) (my/python-venv-dir)) (expand-file-name ".venv" root))))
     (compile (format "[ -x %s/bin/python ] || python3 -m venv %s; %s/bin/python -m pip install -r requirements.txt"
                      (shell-quote-argument venv) (shell-quote-argument venv) (shell-quote-argument venv)))))
+
+;;; Ruby / Rails, TypeScript
+
+;; ruby-mode registers its own files; web-mode takes the templates: Rails views, and TSX/JSX that typescript-mode can't indent
+(use-package web-mode
+  :mode ("\\.erb\\'" "\\.[jt]sx\\'")
+  :init
+  (setq web-mode-markup-indent-offset 2
+        web-mode-css-indent-offset 2
+        web-mode-code-indent-offset 2
+        web-mode-content-types-alist '(("jsx" . "\\.[jt]sx\\'"))))
+
+(use-package typescript-mode
+  :mode ("\\.ts\\'" "\\.[cm]ts\\'")
+  :init (setq typescript-indent-level 2))
+
+;;; Nix
 
 (use-package nix-mode
   :mode "\\.nix\\'")

@@ -10,7 +10,7 @@ Everything lives under `dotfiles/` and is applied by symlink, there is no instal
 | Path | What it is | Linked to |
 |---|---|---|
 | `dotfiles/hypr/` | Hyprland config | `~/.config/hypr` |
-| `dotfiles/emacs/` | Emacs: evil, org, magit, plus `lisp/dev-*.el` modules | `~/.config/emacs` |
+| `dotfiles/emacs/` | Emacs: evil, org, magit, tab-line, compile-mode, plus `lisp/dev-*.el` modules | `~/.config/emacs` |
 | `dotfiles/bash/` | `.bashrc`, `.bash_profile`, `.profile`, `.zshrc` | `~/` |
 | `dotfiles/foot/` | foot terminal | `~/.config/foot` |
 | `dotfiles/fastfetch/` | fastfetch | `~/.config/fastfetch` |
@@ -34,20 +34,28 @@ ln -s ~/.dotfiles/dotfiles/bash/.bashrc ~/.bashrc
 ## Emacs
 
 Small on purpose: evil, org and magit, and **no LSP** (the compiler, ripgrep and etags
-are the tools). `emac.el` loads the modules in `lisp/` one by one; a module that fails
-is reported and skipped, so one broken file cannot take startup down. Delete a name
-from the list in `emac.el` to drop a module.
+are the tools; build, check and test all go through `compile`). One window: files that
+Godot, nnn or a script open land in the Emacs frame already open, as tab-line tabs.
+`emac.el` loads the modules in `lisp/` one by one; a module that fails is reported and
+skipped, so one broken file cannot take startup down. Delete a name from the list in
+`emac.el` to drop a module.
 
 | module | what |
 |---|---|
-| `dev-nav` | etags, ripgrep, flymake on gcc / shellcheck, company |
+| `dev-server` | this Emacs is the `emacsclient` server, one frame for everything opened from outside |
+| `dev-nav` | etags, ripgrep, flymake on gcc / shellcheck, company, formatters |
+| `dev-compile` | compile command per project / language, run from the project root; autotest on save |
 | `dev-shell` | bash: shellcheck through flymake, shfmt, bats |
-| `dev-lang` | rust-mode + cargo, python venv/pip, nix-mode |
+| `dev-lang` | C/C++, Rust, Go, Perl, Python, Ruby/Rails, TypeScript, Nix |
 | `dev-debug` | gdb (gud) and dape |
 | `dev-godot` | gdscript-mode, engine checker as a flymake backend |
 | `dev-merge` | smerge, ediff in one frame, a git mergetool backend |
 | `dev-templates` | new-file templates and snippets |
-| `dev-server` | this Emacs is the `emacsclient` server other tools open files in |
+| `dev-inbox` | RSS (elfeed), mail (Gnus + smtpmail); todo is org capture |
+| `claude-api`, `claude-mcp` | Claude works on the daemon's buffers, via `cemacs` or as an MCP server (`bin/emacs-mcp`) |
+
+Machine-local settings (mail address) go in `dotfiles/emacs/local.el`, which is
+gitignored; feed and mail data live in `~/.local/share/emacs/`.
 
 `lisp/README.md` lists the key bindings and what was and was not exercised.
 

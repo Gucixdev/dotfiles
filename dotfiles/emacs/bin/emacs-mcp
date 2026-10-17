@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# emacs-mcp - MCP server on stdio: Claude Code works on the buffers of the Emacs daemon you run (lisp/claude-mcp.el).
+# Register once:  claude mcp add -s user emacs -- ~/.config/emacs/bin/emacs-mcp
+# One JSON-RPC message per line in, one per line out. Emacs parses and answers; this only carries the bytes.
+# No daemon yet: emacsclient -a '' starts one with the normal config.
+set -u
+tmp=$(mktemp -d "${TMPDIR:-/tmp}/emacs-mcp.XXXXXX") || exit 1
+trap 'rm -rf "$tmp"' EXIT
+in=$tmp/in out=$tmp/out
+while IFS= read -r line || [ -n "$line" ]; do
+	[ -n "$line" ] || continue
+	printf '%s' "$line" > "$in"
+	: > "$out"
+	if ! emacsclient -a '' --eval "(claude-mcp/handle \"$in\" \"$out\")" > /dev/null 2> "$tmp/err"; then
+		# Emacs did not answer: a request still gets an error back, or the client waits for it forever
+		id=$(printf '%s' "$line" | sed -n 's/.*"id"[[:space:]]*:[[:space:]]*\("[^"]*"\|[0-9][0-9]*\).*/\1/p')
+		if [ -n "$id" ]; then
+			msg=$(tr -d '"\\\n' < "$tmp/err" | cut -c1-300)
+			printf '{"jsonrpc":"2.0","id":%s,"error":{"code":-32603,"message":"emacs: %s"}}\n' "$id" "${msg:-no answer}"
+		fi
+		continue
+	fi
+	if [ -s "$out" ]; then
+		cat "$out"
+		printf '\n'
+	fi
+done

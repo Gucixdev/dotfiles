@@ -8,12 +8,14 @@
 ;;   *.py                                       shebang, docstring, main guard
 ;;   *.gd                                       extends + _ready
 ;;   *.el                                       header, lexical-binding, provide
-;;   *.rs  *.md  Makefile  *.org                small skeletons
+;;   *.pl                                       shebang, strict, warnings
+;;   *.rs  *.go  *.cpp  *.md  Makefile  *.org   small skeletons
 ;;   M-x my/template-insert  pastes any of them into the current buffer.
 ;;
 ;; SNIPPETS  C-c i  asks for a snippet that applies to this major mode and fills in the blanks (prompts for names):
 ;;   C: for if fn struct main        bash: fn case usage read-lines die       python: def class main
 ;;   GDScript: func signal export    elisp: defun use-package                  rust: fn match
+;;   go: func iferr                  perl: sub      ruby: def                  typescript: fn
 ;; Add one: push a (MODES NAME . SKELETON) onto `my/snippets' - SKELETON is plain `skeleton-insert' syntax, see (info "(autotype)").
 
 (require 'autoinsert)
@@ -92,6 +94,29 @@ func _ready() -> void:
     @@
 }
 ")
+    ("go"
+     "package main
+
+func main() {
+	@@
+}
+")
+    ("cpp"
+     "#include <cstdio>
+
+int main()
+{
+	@@
+	return 0;
+}
+")
+    ("perl"
+     "#!/usr/bin/env perl
+use strict;
+use warnings;
+
+@@
+")
     ("markdown"
      "# %BASE%
 
@@ -133,6 +158,9 @@ clean:
                 ("\\.gd\\'"                             . "gdscript")
                 ("\\.el\\'"                             . "elisp")
                 ("\\.rs\\'"                             . "rust")
+                ("\\.go\\'"                             . "go")
+                ("\\.\\(cpp\\|cc\\|cxx\\)\\'"           . "cpp")
+                ("\\.pl\\'"                             . "perl")
                 ("\\.md\\'"                             . "markdown")
                 ("\\(\\`\\|/\\)[Mm]akefile\\'"          . "makefile")
                 ("\\.org\\'"                            . "org")))
@@ -182,7 +210,18 @@ clean:
     (rust-mode "fn"
                ("name: " "fn " str "(" (skeleton-read "args: ") ") {\n" > _ "\n}" >))
     (rust-mode "match"
-               ("expr: " "match " str " {\n" > "_ => {" _ "}\n" > "}" >)))
+               ("expr: " "match " str " {\n" > "_ => {" _ "}\n" > "}" >))
+    (go-mode "func"
+             ("name: " "func " str "(" (skeleton-read "args: ") ") {\n" > _ "\n}" >))
+    (go-mode "iferr"
+             (nil "if err != nil {\n" > "return " _ "err\n" > "}" >))
+    (cperl-mode perl-mode "sub"
+                ("name: " "sub " str " {\n" > "my (" _ ") = @_;\n" > "}" >))
+    (ruby-mode "def"
+               ("name: " "def " str "\n" > _ "\nend" >))
+    (typescript-mode "fn"
+                     ("name: " "function " str "(" (skeleton-read "args: ") "): " (skeleton-read "returns: ") " {\n" > _
+                      "\n}" >)))
   "Each entry: (MAJOR-MODE... NAME SKELETON). NAME is a string; SKELETON is `skeleton-insert' syntax.")
 
 (defun my/snippets-for-mode ()

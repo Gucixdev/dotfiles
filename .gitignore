@@ -11,6 +11,15 @@ dotfiles/emacs/auto-save-list/
 dotfiles/emacs/backups/
 dotfiles/emacs/custom.el
 dotfiles/emacs/.mc-lists.el
+dotfiles/emacs/local.el
+dotfiles/emacs/transient/
+dotfiles/emacs/projects
+dotfiles/emacs/url/
+dotfiles/emacs/tramp
+dotfiles/emacs/network-security.data
+dotfiles/emacs/eshell/
+dotfiles/emacs/recentf
+dotfiles/emacs/bookmarks
 # emacs autosave/lock files - can appear anywhere a buffer is open live
 */#*#
 *~

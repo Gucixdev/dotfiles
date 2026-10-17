@@ -10,15 +10,17 @@
 ;;                 the engine's own checker (GDScript, dev-godot.el), the byte-compiler (Emacs Lisp).
 ;;                 C-c d  list them    ]d [d  next / previous (evil normal state)
 ;;   Completion    company: what the major mode offers, words from open buffers, file names
-;;   Format        C-c f  clang-format (C/C++), rustfmt (Rust), shfmt (sh), gdformat (GDScript), else the mode's indentation
-;;   Build / run   C-c r  compile (per project via .dir-locals.el);  M-g n / M-g p  next / previous error
+;;   Format        C-c f  clang-format (C/C++), rustfmt (Rust), gofmt (Go), shfmt (sh), gdformat (GDScript), prettier
+;;                 (TS/JS, when installed), else the mode's indentation
+;;   Build / run   C-c r  compile, see dev-compile.el;  M-g n / M-g p  next / previous error
 
 (require 'project)
 (require 'subr-x)
 
 ;;; Tags
 
-(defconst my/project-markers '(".git" "project.godot" "Cargo.toml" "Makefile" "meson.build" "CMakeLists.txt" "pyproject.toml")
+(defconst my/project-markers '(".git" "project.godot" "Cargo.toml" "go.mod" "Gemfile" "package.json" "build.sh" "nob.c"
+                               "Makefile" "meson.build" "CMakeLists.txt" "pyproject.toml")
   "A directory holding one of these is a project root when project.el finds no VCS.")
 
 (defun my/project-root ()
@@ -133,6 +135,10 @@ in -fsyntax-only mode reading the buffer from stdin."
       (my/format--run "shfmt"))
      ((and (derived-mode-p 'gdscript-mode) (executable-find "gdformat"))
       (my/format--run "gdformat" "-"))
+     ((and (derived-mode-p 'go-mode) (executable-find "gofmt"))
+      (my/format--run "gofmt"))
+     ((and (derived-mode-p 'typescript-mode 'js-mode 'web-mode) (executable-find "prettier"))
+      (my/format--run "prettier" "--stdin-filepath" file))
      (t (indent-region (point-min) (point-max))
         (message "no external formatter for %s: re-indented with the major mode's rules" major-mode)))))
 (global-set-key (kbd "C-c f") #'my/format-buffer)
