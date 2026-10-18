@@ -15,6 +15,9 @@
 ;;             C-c r offers bin/rails test
 ;; TypeScript  typescript-mode (package) for .ts; web-mode for .tsx / .jsx
 ;; Nix         nix-mode (package) for *.nix
+;; Lisp        paredit (package) keeps parentheses balanced while typing in every Lisp mode; SLY (package, only when sbcl
+;;             is installed) for Common Lisp, which Nyxt is configured in:  M-x sly
+;; Lua         lua-mode (package)
 
 ;;; C / C++
 
@@ -93,6 +96,25 @@
 
 (use-package nix-mode
   :mode "\\.nix\\'")
+;;; Lisp - paredit, SLY
+
+(use-package paredit
+  :hook ((emacs-lisp-mode lisp-mode lisp-interaction-mode scheme-mode ielm-mode sly-mrepl-mode) . enable-paredit-mode)
+  :init
+  ;; electric-pair-mode (emac.el) would insert a second closing paren on top of paredit's
+  (add-hook 'paredit-mode-hook (lambda () (electric-pair-local-mode -1))))
+
+;; a plain `when', not :if - use-package would still install it on a machine without sbcl
+(when (executable-find "sbcl")
+  (use-package sly
+    :commands sly
+    :init (setq inferior-lisp-program "sbcl")))
+
+;;; Lua
+
+(use-package lua-mode
+  :mode "\\.lua\\'"
+  :init (setq lua-indent-level 4))
 
 (provide 'dev-lang)
 ;;; dev-lang.el ends here

@@ -219,8 +219,8 @@
 ;;; A module that fails to load is reported in *Messages* and skipped; it can't take startup down with it.
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-(dolist (module '(dev-server dev-nav dev-compile dev-shell dev-lang dev-debug dev-godot dev-merge dev-templates dev-inbox
-                  claude-api claude-mcp))
+(dolist (module '(dev-server dev-files dev-nav dev-compile dev-shell dev-lang dev-debug dev-godot dev-merge dev-templates
+                  dev-inbox claude-api claude-mcp claude-manager))
   (condition-case err
       (require module)
     (error (message "dev module %s failed to load: %S" module err))))

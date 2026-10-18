@@ -43,16 +43,18 @@ skipped, so one broken file cannot take startup down. Delete a name from the lis
 | module | what |
 |---|---|
 | `dev-server` | this Emacs is the `emacsclient` server, one frame for everything opened from outside |
-| `dev-nav` | etags, ripgrep, flymake on gcc / shellcheck, company, formatters |
+| `dev-files` | every save keeps the previous version (`~/.local/share/versions`), deleting goes to the trash, dired |
+| `dev-nav` | etags, ripgrep, flymake on gcc / shellcheck, company, formatters; a language server only on request, Python and Lua |
 | `dev-compile` | compile command per project / language, run from the project root; autotest on save |
 | `dev-shell` | bash: shellcheck through flymake, shfmt, bats |
-| `dev-lang` | C/C++, Rust, Go, Perl, Python, Ruby/Rails, TypeScript, Nix |
+| `dev-lang` | C/C++, Rust, Go, Perl, Python, Ruby/Rails, TypeScript, Nix, Lisp (paredit, SLY), Lua |
 | `dev-debug` | gdb (gud) and dape |
 | `dev-godot` | gdscript-mode, engine checker as a flymake backend |
 | `dev-merge` | smerge, ediff in one frame, a git mergetool backend |
 | `dev-templates` | new-file templates and snippets |
 | `dev-inbox` | RSS (elfeed), mail (Gnus + smtpmail); todo is org capture |
 | `claude-api`, `claude-mcp` | Claude works on the daemon's buffers, via `cemacs` or as an MCP server (`bin/emacs-mcp`) |
+| `claude-manager` | his skills, Claude's MCP servers and Claude's tasks (`~/org/claude.org`) in one list |
 
 Machine-local settings (mail address) go in `dotfiles/emacs/local.el`, which is
 gitignored; feed and mail data live in `~/.local/share/emacs/`.

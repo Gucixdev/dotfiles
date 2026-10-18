@@ -13,6 +13,10 @@
 ;;   Format        C-c f  clang-format (C/C++), rustfmt (Rust), gofmt (Go), shfmt (sh), gdformat (GDScript), prettier
 ;;                 (TS/JS, when installed), else the mode's indentation
 ;;   Build / run   C-c r  compile, see dev-compile.el;  M-g n / M-g p  next / previous error
+;;
+;; The one exception, off until switched on: C-c L in a Python or Lua buffer starts a language server (eglot, built in)
+;; for that project, C-c L again stops it. Nothing starts one by itself. Servers eglot knows: pylsp or pyright for Python,
+;; lua-language-server for Lua, whichever is installed.
 
 (require 'project)
 (require 'subr-x)
@@ -102,6 +106,23 @@ in -fsyntax-only mode reading the buffer from stdin."
     (evil-define-key 'normal flymake-mode-map
       (kbd "]d") #'flymake-goto-next-error
       (kbd "[d") #'flymake-goto-prev-error)))
+
+;;; Language server, scripting languages only, on request
+
+(defvar my/script-lsp-modes '(python-mode python-ts-mode lua-mode lua-ts-mode)
+  "Major modes where `my/script-lsp' may start a language server.")
+
+(defun my/script-lsp ()
+  "Start a language server (eglot) for this Python or Lua buffer's project; when one runs, stop it."
+  (interactive)
+  (unless (apply #'derived-mode-p my/script-lsp-modes)
+    (user-error "No LSP for %s: only Python and Lua, on request (here: compile, grep, tags)" major-mode))
+  (require 'eglot)
+  (if-let ((server (eglot-current-server)))
+      (eglot-shutdown server)
+    (eglot-ensure)))
+
+(global-set-key (kbd "C-c L") #'my/script-lsp)
 
 ;;; Completion
 
