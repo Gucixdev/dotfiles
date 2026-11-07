@@ -1,10 +1,17 @@
 ;; -*- lexical-binding: t; -*-
-;;
-;; Minimal config: evil, org, magit. No toolbar/menu/scrollbar - see
-;; early-init.el, which strips those before this file even loads.
-;;
-;; Sectioned ;;; headers like tsoding's own .emacs (github.com/rexim/dotfiles)
-;; - each section is independent, read top to bottom or jump around.
+;;EDIT
+;; wyjebac org evil devil god modes
+;; skonfigurowac cua mode 1 nativecomp
+;; dodac paru i to smartparent chyba do kodu z wcieciami
+;; dodac wtyczke do email/rss
+;; dodac cos jak ta wtyczka vm do obsługi okien ale bardziej wayland niz xserver mi zależy
+;; dodac do terminala dostep termios? nw co teraz dobre i dirred
+;; wgrep gcmh dash dash-functional orgcliplink tempel wdirred hydra tramprpc claudecodeide
+;; ogl dodac wiele klasycznych wtyczek emacsa
+;; osobny folder langs dla np python elisp lisp java nim gdscript c cpp rust go teal perl lua pobrac tam tez te tryby jezykowe tsodinga
+;; wlasny godot(version)mode gdscript gut
+;; vertico consult embark do wyszukiwania
+;; hexmode hexasm emacscapstone vterm elfed notmuch forge eglot dapmode
 
 ;;; Package management
 
