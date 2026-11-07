@@ -10,7 +10,7 @@ export GTK_THEME=Breeze-Dark
 export EDITOR=smart-edit
 export VISUAL=smart-edit
 export FLATPAK_USER_DIR=/data/flatpak
-export NNN_OPENER=/data/dev/setup/base/nnn/scripts/opener
+export NNN_OPENER=$HOME/dev/github/holyc/nnn/scripts/opener
 export NNN_TRASH=2
 export NNN_COLORS='2136'
 export NNN_FCOLORS='c1e2272e006033f7c6d6abc4'
@@ -98,7 +98,7 @@ alias suod='sudo'
 
 #----------------------------------------------------------------------------------------------------------------------
 #PROMPT
-PS1="\u:\w\$ "
+PS1="\[\e[1;38;5;171m\]\u\[\e[0m\]:\w\$ "
 
 #EXTERNAL SOURCES
 # shellcheck source=/dev/null

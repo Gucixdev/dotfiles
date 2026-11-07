@@ -32,7 +32,13 @@
 ;;; Speed - native compilation (Emacs 31 has it) and a GC that waits for idle time instead of pausing while typing
 
 (setq native-comp-jit-compilation t
-      native-comp-async-report-warnings-errors 'silent)
+      native-comp-async-report-warnings-errors 'silent
+      package-native-compile nil)   ; packages are compiled lazily by the JIT, not synchronously at install (that popped the warnings)
+;; third-party packages reference optional things (org, evil, eglot, lsp) that are not installed here on purpose: not our warnings
+(require 'warnings)
+(add-to-list 'warning-suppress-types '(native-compiler))
+(add-to-list 'warning-suppress-log-types '(native-compiler))
+(add-to-list 'warning-suppress-types '(comp))
 (use-package gcmh
   :config (gcmh-mode 1))
 
@@ -155,6 +161,8 @@
 (use-package embark
   :bind (("C-."   . embark-act)
          ("C-;"   . embark-dwim)))
+(use-package embark-consult           ; the glue Embark asks for when both are installed
+  :after (embark consult))
 
 ;;; Editing helpers
 
