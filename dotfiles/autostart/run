@@ -19,5 +19,5 @@ disown
 /usr/lib/xfce-polkit/xfce-polkit &
 disown
 
-emacs --fg-daemon &
-disown
+# emacs --fg-daemon &   # off by default (2026-11-07): start Emacs by hand; configs stay
+# disown
