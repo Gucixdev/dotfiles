@@ -1,17 +1,17 @@
 ;; -*- lexical-binding: t; -*-
-;;EDIT
-;; wyjebac org evil devil god modes
-;; skonfigurowac cua mode 1 nativecomp
-;; dodac paru i to smartparent chyba do kodu z wcieciami
-;; dodac wtyczke do email/rss
-;; dodac cos jak ta wtyczka vm do obsługi okien ale bardziej wayland niz xserver mi zależy
-;; dodac do terminala dostep termios? nw co teraz dobre i dirred
-;; wgrep gcmh dash dash-functional orgcliplink tempel wdirred hydra tramprpc claudecodeide
-;; ogl dodac wiele klasycznych wtyczek emacsa
-;; osobny folder langs dla np python elisp lisp java nim gdscript c cpp rust go teal perl lua pobrac tam tez te tryby jezykowe tsodinga
-;; wlasny godot(version)mode gdscript gut
-;; vertico consult embark do wyszukiwania
-;; hexmode hexasm emacscapstone vterm elfed notmuch forge eglot dapmode
+;;EDIT  (his list; [x] done 2026-11-07, [ ] open - see the notes in braindump)
+;; [x] wyjebac org evil devil god modes  (evil, evil-collection and org are gone; devil/god were never here)
+;; [x] skonfigurowac cua mode 1 nativecomp
+;; [x] smartparens (wciecia: python/nim/gdscript - strict mode off, it only pairs and wraps)
+;; [ ] wtyczka do email/rss: elfeed (RSS) is easy, notmuch needs the notmuch binary + a mail fetcher
+;; [ ] cos jak EXWM ale wayland: windows as buffers over dwl's fifo (emacs/dwl.el in ~/dev/desktop is the start)
+;; [ ] terminal: vterm needs libvterm built once (cmake is here); eat is pure elisp. wdired done
+;; [x] wgrep gcmh dash tempel hydra wdired     [ ] orgcliplink (needs org, which was thrown out) tramp-rpc claude-code-ide
+;; [ ] osobny folder langs/ (lisp/langs/<lang>.el): rust, python, nix live in dev-lang.el today
+;; [ ] wlasny godot mode: dev-godot.el exists (137 lines), gut not started
+;; [x] vertico consult embark
+;; [ ] hexl (built in) hexasm capstone vterm elfed notmuch forge eglot dap-mode
+;;     NOTE: dev-nav.el says "no LSP anywhere, on purpose" but eglot is on this list - one of the two has to give.
 
 ;;; Package management
 
@@ -27,6 +27,13 @@
   (package-install 'use-package))
 (require 'use-package)
 (setq use-package-always-ensure t)
+
+;;; Speed - native compilation (Emacs 31 has it) and a GC that waits for idle time instead of pausing while typing
+
+(setq native-comp-jit-compilation t
+      native-comp-async-report-warnings-errors 'silent)
+(use-package gcmh
+  :config (gcmh-mode 1))
 
 ;;; Sane defaults
 
@@ -44,16 +51,14 @@
 (global-display-line-numbers-mode 1)
 (column-number-mode 1)
 (show-paren-mode 1)
-(electric-pair-mode 1)
 
 ;; auto-reload a buffer when the file behind it changes on disk (e.g. an
 ;; external tool edits it) instead of showing stale content or prompting
 (setq auto-revert-verbose nil)      ; don't spam the minibuffer every reload
 (global-auto-revert-mode 1)
 
-;; real system clipboard for evil's own yank/paste (so "+y / "+p and
-;; plain y/p in visual state all reach wl-copy/wl-paste, not just an
-;; Emacs-internal kill-ring)
+;; real system clipboard: kill/yank (and CUA C-c/C-x/C-v) reach wl-copy/wl-paste,
+;; not just an Emacs-internal kill-ring
 (setq select-enable-clipboard t)
 
 ;; no syntax highlighting - distracting, plain text everywhere
@@ -102,28 +107,10 @@
           (lambda ()
             (add-hook 'write-file-functions 'delete-trailing-whitespace nil t)))
 
-;;; Evil - vim keybindings
+;;; CUA - C-c / C-x / C-v copy, cut, paste with a region (and keep C-c / C-x as prefixes when there is none). Rectangles: C-RET.
+;;; select-enable-clipboard above makes these reach the real system clipboard.
 
-(use-package evil
-  :init
-  (setq evil-want-integration t
-        evil-want-keybinding nil   ; let evil-collection supply these instead
-        evil-want-C-u-scroll t
-        evil-undo-system 'undo-redo)
-  :config
-  (evil-mode 1)
-  ;; classic C-c/C-v, to the real system clipboard. Bound directly in
-  ;; evil's own keymaps (not cua-mode - evil's keymaps win precedence
-  ;; over cua's region-conditional bindings, so cua's C-c/C-v silently
-  ;; never fire while evil-mode is on; confirmed by testing, not a guess).
-  (define-key evil-visual-state-map (kbd "C-c") #'evil-yank)
-  (define-key evil-insert-state-map (kbd "C-v") #'evil-paste-after)
-  (define-key evil-normal-state-map (kbd "C-v") #'evil-paste-after))
-
-(use-package evil-collection
-  :after evil
-  :config
-  (evil-collection-init))         ; evil bindings for magit, dired, etc.
+(cua-mode 1)
 
 ;;; GDB - built in, no LSP involved. M-x gdb, give it a command like
 ;;; "gdb --args ./myprog arg1", gdb-many-windows gives the multi-pane
@@ -135,18 +122,6 @@
 ;;; project (set per-project via .dir-locals.el, e.g. "godot --path .")
 ;;; so Godot output lands in an Emacs buffer instead of needing the editor.
 (global-set-key (kbd "C-c r") #'compile)
-
-;;; Org mode
-
-(use-package org
-  :ensure nil                     ; built into Emacs, just configuring it
-  :bind ("C-c a" . org-agenda)
-  :config
-  (setq org-startup-indented t
-        org-hide-emphasis-markers t
-        org-ellipsis " ▾"
-        org-todo-keywords '((sequence "TODO" "IN-PROGRESS" "|" "DONE" "CANCELLED"))
-        org-log-done 'time))        ; stamps when a task flips to DONE
 
 ;;; Magit - git porcelain
 
@@ -165,6 +140,47 @@
 (use-package which-key
   :config
   (which-key-mode 1))
+
+;;; Search and completion in the minibuffer - vertico (the list), consult (search/switch commands), embark (act on what is selected)
+
+(use-package vertico
+  :config (vertico-mode 1))
+(use-package consult
+  :bind (("C-s"     . consult-line)
+         ("C-x b"   . consult-buffer)
+         ("M-y"     . consult-yank-pop)
+         ("M-g g"   . consult-goto-line)
+         ("M-s r"   . consult-ripgrep)))
+(use-package embark
+  :bind (("C-."   . embark-act)
+         ("C-;"   . embark-dwim)))
+
+;;; Editing helpers
+
+;; wgrep: edit the results buffer of grep/ripgrep (C-c C-p in a grep buffer, C-c C-c applies to the files)
+(use-package wgrep
+  :custom (wgrep-auto-save-buffer t))
+;; wdired: rename files by editing the dired buffer as text (C-x C-q in dired, C-c C-c to apply)
+(setq wdired-allow-to-change-permissions t)
+;; smartparens: pairs, wrap and slurp without the strictness of paredit - indentation languages keep working
+(use-package smartparens
+  :config
+  (require 'smartparens-config)
+  (smartparens-global-mode 1)
+  (electric-pair-mode 0))                  ; one pairing engine, not two
+;; tempel: small snippets (C-c t is TAGS in dev-nav, so M-+ completes, M-* inserts)
+(use-package tempel
+  :bind (("M-+" . tempel-complete)
+         ("M-*" . tempel-insert)))
+(use-package dash)
+;; hydra: key menus; one for window/split handling to start with
+(use-package hydra
+  :config
+  (defhydra my/hydra-windows (global-map "C-c w")
+    "windows"
+    ("h" windmove-left "left") ("j" windmove-down "down") ("k" windmove-up "up") ("l" windmove-right "right")
+    ("s" split-window-below "split -") ("v" split-window-right "split |") ("d" delete-window "close")
+    ("o" delete-other-windows "only")))
 
 ;;; Dev modules - ~/.config/emacs/lisp/*.el, each independent: delete its name from the list to drop it.
 ;;; A module that fails to load is reported in *Messages* and skipped; it can't take startup down with it.
