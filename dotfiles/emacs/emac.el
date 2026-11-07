@@ -7,7 +7,8 @@
 ;; [ ] cos jak EXWM ale wayland: windows as buffers over dwl's fifo (emacs/dwl.el in ~/dev/desktop is the start)
 ;; [ ] terminal: vterm needs libvterm built once (cmake is here); eat is pure elisp. wdired done
 ;; [x] wgrep gcmh dash tempel hydra wdired     [ ] orgcliplink (needs org, which was thrown out) tramp-rpc claude-code-ide
-;; [ ] osobny folder langs/ (lisp/langs/<lang>.el): rust, python, nix live in dev-lang.el today
+;; [x] osobny folder langs/ (lisp/langs/<lang>.el: rust python nix lisp c lua(+teal via lua-mode) go nim java perl; gdscript = dev-godot.el)
+;; [x] paredit - tylko w lispach (langs/lisp.el), smartparens wylaczony tam
 ;; [ ] wlasny godot mode: dev-godot.el exists (137 lines), gut not started
 ;; [x] vertico consult embark
 ;; [ ] hexl (built in) hexasm capstone vterm elfed notmuch forge eglot dap-mode
