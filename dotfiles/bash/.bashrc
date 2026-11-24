@@ -5,6 +5,7 @@
 #----------------------------------------------------------------------------------------------------------------------
 #ENV
 export PATH="$HOME/.local/bin:$PATH"
+export CLAUDE_CODE_TMPDIR="$HOME/.cache/claude-tmp"  # /tmp is 3.9 GB of RAM; a full one stops every Claude Code command
 export QT_QPA_PLATFORMTHEME=qt6ct
 export GTK_THEME=Breeze-Dark
 export EDITOR=smart-edit
